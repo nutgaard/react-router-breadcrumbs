@@ -1,68 +1,92 @@
-import React, { PropTypes as PT } from 'react';
+import React, { Component, PropTypes as PT } from 'react';
 import { Link, PropTypes as RouterProps } from 'react-router';
-import { on, not, where, pluck, isEqualTo, join } from './iter-utils';
+import { on, not, where, pluck, isEqualTo, join, lastOf } from './utils';
 
 const paramKeys = /:(\w+)/g;
 
-function safeKey(key) {
-    return key.replace(/\W/g, '');
-}
+const safeKey = (key) => key.replace(/\W/g, '');
+/* eslint-disable */
+const defaultLink = (link, key, text, index, routes) => <Link to={link} key={key}>{text}</Link>;
+const defaultSeparator = (crumb, index, array) => <span key={`separator-${index}`}> &gt; </span>;
+/* eslint-enable */
 
-function defaultLink(link, key, text, index, routes) { // eslint-disable-line no-unused-vars
-    return <Link to={link} key={key}>{text}</Link>;
-}
+class Breadcrumbs extends Component {
+    constructor(props) {
+        super(props);
 
-function defaultSeparator(crumb, index, array) {  // eslint-disable-line no-unused-vars
-    return <span key={`separator-${index}`}>&gt;</span>;
-}
-
-function createText(route, textResolver) {
-    const text = route.crumbText || route.name || route.component.name;
-
-    if (text.includes(':')) {
-        return textResolver(route, text);
+        this._paramReplace = this._paramReplace.bind(this);
+        this._createText = this._createText.bind(this);
+        this._createHref = this._createHref.bind(this);
+        this._toCrumb = this._toCrumb.bind(this);
     }
 
-    return text;
-}
-
-function createHref(route, params) {
-    const link = route.crumbLink || route.path;
-
-    if (link.includes(':')) {
-        return link.replace(paramKeys, (_, key) => (params[key] || key));
+    _paramReplace(text) {
+        const { params } = this.props;
+        return text.replace(paramKeys, (_, key) => (params[key] || key));
     }
 
-    return link;
+    _createText(routePath) {
+        const { resolver } = this.props;
+        const route = lastOf(routePath);
+        const text = route.breadcrumbName || route.name || route.component.name;
+
+        if (text.includes(':')) {
+            return resolver(text, this._paramReplace(text), routePath, route);
+        }
+
+        return text;
+    }
+
+    _createHref(routePath) {
+        const { params } = this.props;
+        const link = routePath
+            .map((route) => route.breadcrumbLink || route.path)
+            .map((routeName) => routeName.startsWith('/') ? routeName : `/${routeName}`)
+            .join('')
+            .replace(/\/\//g, '/');
+
+        if (link.includes(':')) {
+            return link.replace(paramKeys, (_, key) => (params[key] || key));
+        }
+
+        return link;
+    }
+
+    _toCrumb() {
+        const { createLink } = this.props;
+        return (route, index, routes) => {
+            const routePath = routes.slice(0, index + 1);
+            const text = this._createText(routePath);
+            const link = this._createHref(routePath);
+            const key = safeKey(`${text}--${link}`);
+
+            return createLink(link, key, text, index, routes);
+        };
+    }
+
+    render() {
+        const {
+            routes,
+            createSeparator,
+            className
+            } = this.props;
+        const crumbs = on(routes)
+            .filter(not(where(pluck('crumbsIgnore'), isEqualTo(true))))
+            .map(this._toCrumb())
+            .reduce(join(createSeparator), []);
+
+        return (
+            <div className={className}>{crumbs}</div>
+        );
+    }
 }
 
-function toCrumb(textResolver, params, crumblink) {
-    return (route, index, routes) => {
-        const text = createText(route, textResolver);
-        const link = createHref(route, params);
-        const key = safeKey(`${text}--${link}`);
-
-        return crumblink(link, key, text, index, routes);
-    };
-}
-
-function Breadcrumbs({
-    routes,
-    params = {},
-    resolver = (route, crumbText) => crumbText,
-    createLink = defaultLink,
-    createSeparator = defaultSeparator,
-    className
-    }) {
-    const crumbs = on(routes)
-        .filter(not(where(pluck('crumbsIgnore'), isEqualTo(true))))
-        .map(toCrumb(resolver, params, createLink))
-        .reduce(join(createSeparator), []);
-
-    return (
-        <div className={className}>{crumbs}</div>
-    );
-}
+Breadcrumbs.defaultProps = {
+    params: {},
+    resolver: (crumbText, crumbTextProcessed, routePath, route) => crumbText,
+    createLink: defaultLink,
+    createSeparator: defaultSeparator
+};
 
 Breadcrumbs.propTypes = {
     routes: PT.arrayOf(RouterProps.route).isRequired,

@@ -17,3 +17,4 @@ export const join = (separator) => {
         return accumulator;
     };
 };
+export const lastOf = (input) => on(input).slice(-1)[0];
