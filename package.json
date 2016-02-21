@@ -1,0 +1,17 @@
+{
+  "name": "react-router-breadcrumbs",
+  "version": "1.0.0",
+  "description": "Breadcrumb component for react-router",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "react-router",
+    "breadcrumb",
+    "path"
+  ],
+  "author": "Nicklas Utgaard",
+  "license": "MIT"
+}
