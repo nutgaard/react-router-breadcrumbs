@@ -1,12 +1,12 @@
 /* eslint react/no-multi-comp:0 */
 /* eslint react/prop-types:0 */
 import React from 'react';
-import Breadcrumbs, { combineResolvers, textResolver, resolver, key } from '../src/index.js';
+import Breadcrumbs, { combineResolvers, textResolver, resolver, key, childOf, pathname, path, debug } from '../src/index.js';
 import { Link } from 'react-router';
 
 const userlist = [
-    { id: '1', name: 'John' },
-    { id: '2', name: 'Rambo' }
+    { id: '1', name: 'John', img: 'http://cdn3.thr.com/sites/default/files/2011/08/rambo_a.jpg' },
+    { id: '2', name: 'Rambo', img: 'https://i.ytimg.com/vi/bZemQdvthBs/maxresdefault.jpg' }
 ];
 
 const userResolver = resolver(key(':userId')).then((_, keyValue) => userlist
@@ -14,9 +14,17 @@ const userResolver = resolver(key(':userId')).then((_, keyValue) => userlist
     .name
 );
 
-const itemResolver = resolver(key(':item1')).then((_, keyValue) => keyValue.toUpperCase());
+const itemResolver = resolver(key(':item1'), childOf(pathname('RouteName1'), path('parent')))
+    .then((_, keyValue) => keyValue.toUpperCase());
 
-const crumbResolver = combineResolvers(userResolver, itemResolver, textResolver);
+const customResolver = (keyValue, text) => {
+    if (keyValue === ':item2') {
+        return `${keyValue}/${text}`;
+    }
+    return undefined;
+};
+
+const crumbResolver = combineResolvers(userResolver, itemResolver, customResolver, textResolver);
 
 export const App = ({ routes, params, children }) => (
     <div className="animated fadeIn">
@@ -32,6 +40,13 @@ export const App = ({ routes, params, children }) => (
                 <Link to="/parent/child1/item1/child2">Child2</Link>{" "}
                 <Link to="/parent/child1/item1/child2/item2">Item2</Link>{" "}
                 <Link to="/parent/child1/item1/child2/item2/child3">Child3</Link>{" "}
+                <br />
+                Second very long route: <Link to="/parent-2">Parent-2</Link>{" "}
+                <Link to="/parent-2/child1">Child1-2</Link>{" "}
+                <Link to="/parent-2/child1/item1">Item1-2</Link>{" "}
+                <Link to="/parent-2/child1/item1/child2">Child2-2</Link>{" "}
+                <Link to="/parent-2/child1/item1/child2/item2">Item2-2</Link>{" "}
+                <Link to="/parent-2/child1/item1/child2/item2/child3">Child3-2</Link>{" "}
                 <h3>Content</h3>
                 {children}
             </div>
@@ -64,7 +79,7 @@ export const NoMatch = () => (
 export class UserDetails extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { user: { id: 0, name: '' } };
+        this.state = { user: { id: 0, name: '', img: '' } };
     }
 
     componentDidMount() {
@@ -95,6 +110,45 @@ export class UserDetails extends React.Component {
                     This is what we know:
                     <br />ID: {this.state.user.id}
                     <br />NAME: {this.state.user.name}
+                </div>
+            </div>
+        );
+    }
+}
+
+export class UserImage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { user: { id: 0, name: '', img: '' } };
+    }
+
+    componentDidMount() {
+        this.setUserState();
+    }
+
+    componentWillUpdate(nextProps) {
+        if (this.state.user.id !== nextProps.params.userId) {
+            this.setUserState();
+        }
+    }
+
+    setUserState() {
+        this.setState({
+            user: this.findUserById(this.props.params.userId)[0]
+        });
+    }
+
+    findUserById(id) {
+        return userlist.filter((item) => item.id === id);
+    }
+
+    render() {
+        return (
+            <div>
+                <div>
+                    <hr />
+                    This is what we know:
+                    <img src={this.state.user.img} alt="Rambo"/>
                 </div>
             </div>
         );
@@ -142,6 +196,7 @@ export const User = (props) => (
         about user no {props.params.userId}.<br />
         Click{" "}<strong>
         <Link to={`/users/${props.params.userId}/details`}>here</Link></strong> for more details.
+        <Link to={`/users/${props.params.userId}/image`}>Images here</Link>
         <br />
         {props.children}
     </div>

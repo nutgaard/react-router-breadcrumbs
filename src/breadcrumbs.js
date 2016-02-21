@@ -30,11 +30,7 @@ class Breadcrumbs extends Component {
         const route = lastOf(routePath);
         const text = route.breadcrumbName || route.name || route.component.name;
 
-        if (text.includes(':')) {
-            return resolver(text, this._paramReplace(text), routePath, route);
-        }
-
-        return text;
+        return resolver(text, this._paramReplace(text), routePath, route);
     }
 
     _createHref(routePath) {
@@ -45,11 +41,7 @@ class Breadcrumbs extends Component {
             .join('')
             .replace(/\/\//g, '/');
 
-        if (link.includes(':')) {
-            return link.replace(paramKeys, (_, key) => (params[key] || key));
-        }
-
-        return link;
+        return link.replace(paramKeys, (_, key) => (params[key] || key));
     }
 
     _toCrumb() {

@@ -4,6 +4,10 @@ export {
     combineResolvers,
     textResolver,
     resolver,
+    childOf,
+    path,
+    pathname,
+    debug,
     key
 } from './resolver-utils';
 
