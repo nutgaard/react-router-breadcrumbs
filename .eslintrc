@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "ecmaFeatures": { "experimentalObjectRestSpread": true },
+  "rules": {
+    "no-unused-vars": [2, {"argsIgnorePattern": "^_"}],
+    "indent": [2, 4, {"SwitchCase": 1}],
+    "max-len": [2, 120, 4],
+    "comma-dangle": [2, "never"],
+    "react/jsx-indent-props": [2, 4],
+    "arrow-parens": [2, "always"],
+    "no-confusing-arrow": [0]
+  }
+}
