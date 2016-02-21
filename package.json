@@ -12,6 +12,10 @@
     "breadcrumb",
     "path"
   ],
+  "peerDependencies": {
+    "react": "^0.14.7",
+    "react-router": "^2.0.0"
+  },
   "author": "Nicklas Utgaard",
   "license": "MIT"
 }
