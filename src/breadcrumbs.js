@@ -75,7 +75,7 @@ class Breadcrumbs extends Component {
 
 Breadcrumbs.defaultProps = {
     params: {},
-    resolver: (crumbText, crumbTextProcessed, routePath, route) => crumbText,
+    resolver: (crumbText, crumbTextProcessed, routePath, _route) => crumbText,
     createLink: defaultLink,
     createSeparator: defaultSeparator
 };

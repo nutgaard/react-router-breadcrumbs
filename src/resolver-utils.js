@@ -7,7 +7,7 @@ export function combineResolvers(...resolvers) {
 }
 
 export const debug = (fn) => (...args) => {
-    debugger;
+    debugger; // eslint-disable-line no-debugger
     return fn(...args);
 };
 export const key = (expected) => (keyValue) => expected === keyValue;
