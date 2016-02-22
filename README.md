@@ -20,13 +20,13 @@ Using just the default provided by the component.
 ### The default behaviour
 The component takes five props in addition to `routes`.
                                                 
-|    PropName       |    PropType               |    Default    |  Description                                          |
-| ----------------- | ------------------------- | ------------- | ----------------------------------------------------- |
-| `className`       | `React.PropTypes.string`  | `breadcrumbs` | The className for the `div` wrapping your breadcrumbs |
-| `params`          | `React.PropTypes.object`  | `{}`          | Typically the params from react-router                |
-| `resolver`        | `React.PropTypes.func`    | See below     | A text resolver for customized texts                  |
-| `createLink`      | `React.PropTypes.func`    | See below     | Hook for overriding how links are created             |
-| `createSeparator` | `React.PropTypes.func`    | See below     | Hook for override how separators are created          |
+|    PropName       |    PropType                           |    Default    |  Description                                          |
+| ----------------- | ------------------------------------- | ------------- | ----------------------------------------------------- |
+| `className`       | `React.PropTypes.string`              | `breadcrumbs` | The className for the `div` wrapping your breadcrumbs |
+| `params`          | `React.PropTypes.object`              | `{}`          | Typically the params from react-router                |
+| `resolver`        | `React.PropTypes.func`                | See below     | A text resolver for customized texts                  |
+| `createLink`      | `React.PropTypes.func`                | See below     | Hook for overriding how links are created             |
+| `createSeparator` | `PT.oneOfType([PT.func, PT.string])`  | See below     | Hook for override how separators are created          |
 
 ```
 // Default for `resolver` prop
@@ -50,6 +50,8 @@ const defaultLink = (link, key, text, index, routes) => <Link to={link} key={key
 // routes:      All current routes, including the last one
 ```
 
+
+**NB! Its also possible to just send a `string` as this props-value.**
 ```
 // Default for `createSeparator` prop
 const defaultSeparator = (crumbElement, index, array) => <span key={`separator-${index}`}> &gt; </span>;

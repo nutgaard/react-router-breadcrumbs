@@ -87,7 +87,7 @@ Breadcrumbs.propTypes = {
     params: PT.object,
     resolver: PT.func,
     createLink: PT.func,
-    createSeparator: PT.func,
+    createSeparator: PT.oneOfType([PT.func, PT.string]),
     className: PT.string
 };
 

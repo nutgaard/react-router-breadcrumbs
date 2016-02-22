@@ -29,7 +29,7 @@ const crumbResolver = combineResolvers(userResolver, itemResolver, customResolve
 export const App = ({ routes, params, children }) => (
     <div className="animated fadeIn">
         <div>
-            <Breadcrumbs routes={routes} />
+            <Breadcrumbs routes={routes} createSeparator=" | " />
             <Breadcrumbs routes={routes} params={params} resolver={crumbResolver} />
             <div className="content">
                 <h3>Navigation</h3>
