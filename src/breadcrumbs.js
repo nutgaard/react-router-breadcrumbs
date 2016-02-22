@@ -64,7 +64,7 @@ class Breadcrumbs extends Component {
             className
             } = this.props;
         const crumbs = on(routes)
-            .filter(not(where(pluck('crumbsIgnore'), isEqualTo(true))))
+            .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
             .map(this._toCrumb())
             .reduce(join(createSeparator), []);
 
