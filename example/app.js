@@ -29,7 +29,8 @@ const crumbResolver = combineResolvers(userResolver, itemResolver, customResolve
 export const App = ({ routes, params, children }) => (
     <div className="animated fadeIn">
         <div>
-            <Breadcrumbs routes={routes} params={params} className="breadcrumbs" resolver={crumbResolver}/>
+            <Breadcrumbs routes={routes} />
+            <Breadcrumbs routes={routes} params={params} resolver={crumbResolver} />
             <div className="content">
                 <h3>Navigation</h3>
                 Users route: <Link to="users">Users</Link>
@@ -51,11 +52,6 @@ export const App = ({ routes, params, children }) => (
                 {children}
             </div>
         </div>
-        <div className="footer ">
-            <a href="https://github.com/svenanders/react-breadcrumbs">To the github repo</a> (or
-            <a href="http://www.robbestad.com/">to the blog</a>)
-        </div>
-
     </div>
 );
 
