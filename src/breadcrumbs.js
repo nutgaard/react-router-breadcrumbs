@@ -6,6 +6,7 @@ const paramKeys = /:(\w+)/g;
 
 const safeKey = (key) => key.replace(/\W/g, '');
 /* eslint-disable */
+const defaultResolver = (key, text, routePath, route) => key;
 const defaultLink = (link, key, text, index, routes) => <Link to={link} key={key}>{text}</Link>;
 const defaultSeparator = (crumb, index, array) => <span key={`separator-${index}`}> &gt; </span>;
 /* eslint-enable */
@@ -74,8 +75,9 @@ class Breadcrumbs extends Component {
 }
 
 Breadcrumbs.defaultProps = {
+    className: 'breadcrumbs',
     params: {},
-    resolver: (crumbText, crumbTextProcessed, routePath, _route) => crumbText,
+    resolver: defaultResolver,
     createLink: defaultLink,
     createSeparator: defaultSeparator
 };
