@@ -69,6 +69,36 @@ The component looks for three specific props on the `Route` object.
 3. `breadcrumbLink`, will override the `Route.path` and be subject to `params` replacement.
 
 Which can be used to name your breadcrumbs exactly as you want.
+### BreadcrumbIgnore Example
+
+**NB. Theres is currently a bug where paths become wrong if this is used on a 'Route' with a path other then '/'**
+
+
+```
+// The example allways show 'Example' as its first breadcrumb.
+// To remove this, add 'breadcrumbIgnore' as a prop
+<Route path="/" name="Examples" component={App} breadcrumbIgnore > 
+```
+
+### BreadcrumbName Example
+
+```
+// To over the name-prop, we've added the breadcrumbName-prop. 
+<Route name="UserDetails" path="details" component={UserDetails} breadcrumbName="Details" />
+
+
+// The resulting name will be sent to the resolver as the 'key' and i param-replaced form as 'text' (see resolver)
+<Route name="UserLocator" path=":userId" component={User} breadcrumbName=":userId">
+```
+
+### BreadcrumbLink Example
+
+```
+// Overriding the path-prop
+// NB. Can break functionality if abused
+<Route path="/" name="Examples" component={App} breadcrumbLink="/my-application" >
+```
+
 
 ## Peer dependencies
 This component has the newest react and react-router as peerdependenies, but will most likely work with lower version.
