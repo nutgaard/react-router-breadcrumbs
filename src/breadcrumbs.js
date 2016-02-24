@@ -61,20 +61,20 @@ class Breadcrumbs extends Component {
         const {
             routes,
             createSeparator,
-            className
+            className,
+            wrappingComponent
             } = this.props;
         const crumbs = on(routes)
             .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
             .map(this._toCrumb())
             .reduce(join(createSeparator), []);
 
-        return (
-            <div className={className}>{crumbs}</div>
-        );
+        return React.createElement(wrappingComponent, { className }, crumbs);
     }
 }
 
 Breadcrumbs.defaultProps = {
+    wrappingComponent: 'div',
     className: 'breadcrumbs',
     params: {},
     resolver: defaultResolver,
@@ -88,7 +88,8 @@ Breadcrumbs.propTypes = {
     resolver: PT.func,
     createLink: PT.func,
     createSeparator: PT.oneOfType([PT.func, PT.string]),
-    className: PT.string
+    className: PT.string,
+    wrappingComponent: PT.string
 };
 
 export default Breadcrumbs;

@@ -119,14 +119,11 @@ var Breadcrumbs = function (_Component) {
             var routes = _props.routes;
             var createSeparator = _props.createSeparator;
             var className = _props.className;
+            var wrappingComponent = _props.wrappingComponent;
 
             var crumbs = (0, _utils.on)(routes).filter((0, _utils.not)((0, _utils.where)((0, _utils.pluck)('breadcrumbIgnore'), (0, _utils.isEqualTo)(true)))).map(this._toCrumb()).reduce((0, _utils.join)(createSeparator), []);
 
-            return _react2.default.createElement(
-                'div',
-                { className: className },
-                crumbs
-            );
+            return _react2.default.createElement(wrappingComponent, { className: className }, crumbs);
         }
     }]);
 
@@ -134,6 +131,7 @@ var Breadcrumbs = function (_Component) {
 }(_react.Component);
 
 Breadcrumbs.defaultProps = {
+    wrappingComponent: 'div',
     className: 'breadcrumbs',
     params: {},
     resolver: defaultResolver,
@@ -147,7 +145,8 @@ Breadcrumbs.propTypes = {
     resolver: _react.PropTypes.func,
     createLink: _react.PropTypes.func,
     createSeparator: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.string]),
-    className: _react.PropTypes.string
+    className: _react.PropTypes.string,
+    wrappingComponent: _react.PropTypes.string
 };
 
 exports.default = Breadcrumbs;
