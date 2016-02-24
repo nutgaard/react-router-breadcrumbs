@@ -87,7 +87,7 @@ var Breadcrumbs = function (_Component) {
             var params = this.props.params;
 
             var link = routePath.map(function (route) {
-                return route.breadcrumbLink || route.path;
+                return route.breadcrumbLink || route.path || '';
             }).map(function (routeName) {
                 return routeName.startsWith('/') ? routeName : '/' + routeName;
             }).join('').replace(/\/\//g, '/');
