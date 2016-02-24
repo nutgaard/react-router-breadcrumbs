@@ -120,10 +120,14 @@ var Breadcrumbs = function (_Component) {
             var createSeparator = _props.createSeparator;
             var className = _props.className;
             var wrappingComponent = _props.wrappingComponent;
+            var prefixElements = _props.prefixElements;
+            var suffixElements = _props.suffixElements;
 
             var crumbs = (0, _utils.on)(routes).filter((0, _utils.not)((0, _utils.where)((0, _utils.pluck)('breadcrumbIgnore'), (0, _utils.isEqualTo)(true)))).map(this._toCrumb()).reduce((0, _utils.join)(createSeparator), []);
 
-            return _react2.default.createElement(wrappingComponent, { className: className }, crumbs);
+            var allCrumbs = (0, _utils.on)(prefixElements).concat(crumbs).concat((0, _utils.on)(suffixElements));
+
+            return _react2.default.createElement(wrappingComponent, { className: className }, allCrumbs);
         }
     }]);
 
@@ -146,7 +150,9 @@ Breadcrumbs.propTypes = {
     createLink: _react.PropTypes.func,
     createSeparator: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.string]),
     className: _react.PropTypes.string,
-    wrappingComponent: _react.PropTypes.string
+    wrappingComponent: _react.PropTypes.string,
+    prefixElements: _react.PropTypes.oneOfType([_react.PropTypes.arrayOf(_react.PropTypes.element), _react.PropTypes.element]),
+    suffixElements: _react.PropTypes.oneOfType([_react.PropTypes.arrayOf(_react.PropTypes.element), _react.PropTypes.element])
 };
 
 exports.default = Breadcrumbs;

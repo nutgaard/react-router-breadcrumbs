@@ -62,14 +62,18 @@ class Breadcrumbs extends Component {
             routes,
             createSeparator,
             className,
-            wrappingComponent
+            wrappingComponent,
+            prefixElements,
+            suffixElements
             } = this.props;
         const crumbs = on(routes)
             .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
             .map(this._toCrumb())
             .reduce(join(createSeparator), []);
 
-        return React.createElement(wrappingComponent, { className }, crumbs);
+        const allCrumbs = on(prefixElements).concat(crumbs).concat(on(suffixElements));
+
+        return React.createElement(wrappingComponent, { className }, allCrumbs);
     }
 }
 
@@ -89,7 +93,9 @@ Breadcrumbs.propTypes = {
     createLink: PT.func,
     createSeparator: PT.oneOfType([PT.func, PT.string]),
     className: PT.string,
-    wrappingComponent: PT.string
+    wrappingComponent: PT.string,
+    prefixElements: PT.oneOfType([PT.arrayOf(PT.element), PT.element]),
+    suffixElements: PT.oneOfType([PT.arrayOf(PT.element), PT.element])
 };
 
 export default Breadcrumbs;
