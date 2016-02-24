@@ -111,5 +111,10 @@ If you test the component with lower versions of react and/or react-router pleas
 "react-router": "^2.0.0"
 ```
 
+## Undocumented / TODO
+1. If a breadcrumbLink and the route.path is both falsy the component uses a empty string. Suggest adding a default message/invariant/console.error to warn the user
+2. `wrappingcomponent` is a undocumented prop
+3. `prefixElements` and `suffixElement` are undocumented
+
 ## Example
 The example can be seen at <url> and is greatly inspired by https://github.com/svenanders/react-breadcrumbs which provides a similar breadcrumb component. 
