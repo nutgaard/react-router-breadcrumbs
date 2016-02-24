@@ -37,7 +37,7 @@ class Breadcrumbs extends Component {
     _createHref(routePath) {
         const { params } = this.props;
         const link = routePath
-            .map((route) => route.breadcrumbLink || route.path)
+            .map((route) => route.breadcrumbLink || route.path || '')
             .map((routeName) => routeName.startsWith('/') ? routeName : `/${routeName}`)
             .join('')
             .replace(/\/\//g, '/');
