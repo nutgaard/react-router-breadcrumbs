@@ -22,8 +22,8 @@
   "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run lint && node_modules/.bin/babel src/ --out-dir dist",
-    "lint": "node_modules/.bin/eslint index.js src/",
+    "build": "npm run lint && babel src/ --out-dir dist",
+    "lint": "eslint index.js src/",
     "prepublish": "npm run build",
     "postinstall": "npm run build"
   },
