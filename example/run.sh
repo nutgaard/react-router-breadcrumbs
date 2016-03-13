@@ -1,2 +1,2 @@
 #!/bin/bash
-../node_modules/.bin/webpack-dev-server --config webpack-config.js --port 8080
+../node_modules/.bin/webpack-dev-server --config webpack-config.js --hot --inline --port 8080
