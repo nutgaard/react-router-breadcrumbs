@@ -1,3 +1,5 @@
+/* eslint-env node, mocha */
+/* eslint-disable newline-per-chained-call */
 import { expect } from 'chai';
 import * as Utils from './../src/utils';
 
@@ -42,7 +44,7 @@ describe('Utils.not', () => {
 
 describe('Utils.where', () => {
     const keyTransform = (obj) => obj.key;
-    const values = [{key: 1, val: 1}, {key: 2, val: 2}, {key: 3, val: 3}];
+    const values = [{ key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 }];
 
     it('should work without predicate', () => {
         values.filter(Utils.where());
@@ -54,12 +56,12 @@ describe('Utils.where', () => {
 
         expect(Array.isArray(res)).to.equal(true);
         expect(res.length).to.equal(1);
-        expect(res[0]).to.deep.equal({key: 1, val: 1});
+        expect(res[0]).to.deep.equal({ key: 1, val: 1 });
     });
 });
 
 describe('Utils.pluck', () => {
-    const obj = {key1: 'val1', key2: 'val2'};
+    const obj = { key1: 'val1', key2: 'val2' };
 
     it('should not fail on missing keys', () => {
         const res = Utils.pluck('key')(obj);
@@ -71,7 +73,7 @@ describe('Utils.pluck', () => {
         const res = Utils.pluck('key2')(obj);
 
         expect(res).to.equal('val2');
-    })
+    });
 });
 
 describe('Utils.isEqualTo', () => {

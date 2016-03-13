@@ -1,3 +1,5 @@
+/* eslint-env node, mocha */
+/* eslint-disable newline-per-chained-call */
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import * as Utils from './../src/resolver-utils';
@@ -26,7 +28,7 @@ describe('ResolverUtils.combineResolvers', () => {
     it('should send all arguments to resolver function', () => {
         const fn = spy();
         const resolver = Utils.combineResolvers(fn);
-        const arg3 = {a: 3};
+        const arg3 = { a: 3 };
 
         resolver('arg1', 2, arg3);
 
@@ -67,7 +69,7 @@ describe('ResolverUtils.key', () => {
 
 describe('ResolverUtils.pathname', () => {
     it('should check route.name value', () => {
-        const obj1 = {name: 'val1'};
+        const obj1 = { name: 'val1' };
 
         const res = Utils.pathname('val1')(null, null, null, obj1);
 
@@ -77,7 +79,7 @@ describe('ResolverUtils.pathname', () => {
 
 describe('ResolverUtils.path', () => {
     it('should check route.path value', () => {
-        const obj1 = {path: 'val1'};
+        const obj1 = { path: 'val1' };
 
         const res = Utils.path('val1')(null, null, null, obj1);
 
@@ -87,11 +89,11 @@ describe('ResolverUtils.path', () => {
 
 describe('ResolverUtils.childOf', () => {
     const routePath = [
-        {name: 'name1', path: 'extra1'},
-        {name: 'name2'},
-        {path: 'path1'},
-        {path: 'path2'},
-        {name: 'name3'}
+        { name: 'name1', path: 'extra1' },
+        { name: 'name2' },
+        { path: 'path1' },
+        { path: 'path2' },
+        { name: 'name3' }
     ];
 
     it('should return true if route-parents match the predicates', () => {
@@ -128,23 +130,25 @@ describe('ResolverUtils.resolver', () => {
 
     it('should check all predicates before calling callback', () => {
         const resolverFn = Utils.resolver(Utils.path('extra1'), Utils.pathname('name1'));
-        const callback = spy(() => {});
+        const callback = spy(() => {
+        });
 
         const resolver = resolverFn.then(callback);
 
-        resolver(null, null, null, {name: 'name1', path: 'extra1'});
-        resolver(null, null, null, {name: 'name1', path: 'extra2'});
+        resolver(null, null, null, { name: 'name1', path: 'extra1' });
+        resolver(null, null, null, { name: 'name1', path: 'extra2' });
 
         expect(callback.calledOnce).to.equal(true);
     });
 
     it('should return undefined if nothing matches', () => {
         const resolverFn = Utils.resolver(Utils.path('extra1'), Utils.pathname('name1'));
-        const callback = spy(() => {});
+        const callback = spy(() => {
+        });
 
         const resolver = resolverFn.then(callback);
 
-        const res = resolver(null, null, null, {name: 'name1', path: 'extra2'});
+        const res = resolver(null, null, null, { name: 'name1', path: 'extra2' });
 
         expect(callback.notCalled).to.equal(true);
         expect(res).to.equal(undefined);
