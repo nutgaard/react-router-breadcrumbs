@@ -11,6 +11,7 @@ const defaultLink = (link, key, text, index, routes) => <Link to={link} key={key
 const defaultSeparator = (crumb, index, array) => <span key={`separator-${index}`}> &gt; </span>;
 /* eslint-enable */
 
+// eslint-disable-next-line react/prefer-stateless-function
 class Breadcrumbs extends Component {
     constructor(props) {
         super(props);
