@@ -20,13 +20,16 @@ Using just the default provided by the component.
 ### The default behaviour
 The component takes five props in addition to `routes`.
                                                 
-|    PropName       |    PropType                           |    Default    |  Description                                          |
-| ----------------- | ------------------------------------- | ------------- | ----------------------------------------------------- |
-| `className`       | `React.PropTypes.string`              | `breadcrumbs` | The className for the `div` wrapping your breadcrumbs |
-| `params`          | `React.PropTypes.object`              | `{}`          | Typically the params from react-router                |
-| `resolver`        | `React.PropTypes.func`                | See below     | A text resolver for customized texts                  |
-| `createLink`      | `React.PropTypes.func`                | See below     | Hook for overriding how links are created             |
-| `createSeparator` | `PT.oneOfType([PT.func, PT.string])`  | See below     | Hook for override how separators are created          |
+|    PropName           |    PropType                                           |    Default    |  Description                                          |
+| --------------------- | ----------------------------------------------------- | ------------- | ----------------------------------------------------- |
+| `className`           | `React.PropTypes.string`                              | `breadcrumbs` | The className for the `div` wrapping your breadcrumbs |
+| `params`              | `React.PropTypes.object`                              | `{}`          | Typically the params from react-router                |
+| `resolver`            | `React.PropTypes.func`                                | See below     | A text resolver for customized texts                  |
+| `createLink`          | `React.PropTypes.func`                                | See below     | Hook for overriding how links are created             |
+| `createSeparator`     | `PT.oneOfType([PT.func, PT.string])`                  | See below     | Hook for override how separators are created          |
+| `wrappingComponent`   | `PT.string`                                           | `div`         | Determines the tagName for the wrapping component     |
+| `prefixElements`      | `PT.oneOfType([PT.arrayOf(PT.element), PT.element])`  | none          | Elements to be added infront of the breadcrumb        |
+| `suffixElements`      | `PT.oneOfType([PT.arrayOf(PT.element), PT.element])`  | none          | Elements to be added at the end of the breadcrumb     |
 
 ```
 // Default for `resolver` prop
@@ -113,8 +116,6 @@ If you test the component with lower versions of react and/or react-router pleas
 
 ## Undocumented / TODO
 1. If a breadcrumbLink and the route.path is both falsy the component uses a empty string. Suggest adding a default message/invariant/console.error to warn the user
-2. `wrappingcomponent` is a undocumented prop
-3. `prefixElements` and `suffixElement` are undocumented
 
 ## Example
 The example can be seen at <url> and is greatly inspired by https://github.com/svenanders/react-breadcrumbs which provides a similar breadcrumb component. 
