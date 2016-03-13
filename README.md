@@ -114,6 +114,8 @@ If you test the component with lower versions of react and/or react-router pleas
 "react-router": "^2.0.0"
 ```
 
+In addition a polyfill for `Array.includes` is needed if you are targeting a browser which does not support this.
+
 ## Undocumented / TODO
 1. If a breadcrumbLink and the route.path is both falsy the component uses a empty string. Suggest adding a default message/invariant/console.error to warn the user
 
