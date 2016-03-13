@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -15,12 +13,6 @@ var _reactRouter = require('react-router');
 var _utils = require('./utils');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var paramKeys = /:(\w+)/g;
 
@@ -47,92 +39,62 @@ var defaultSeparator = function defaultSeparator(crumb, index, array) {
 };
 /* eslint-enable */
 
-var Breadcrumbs = function (_Component) {
-    _inherits(Breadcrumbs, _Component);
+var _paramReplace = function _paramReplace(text, params) {
+    return text.replace(paramKeys, function (_, key) {
+        return params[key] || key;
+    });
+};
 
-    function Breadcrumbs(props) {
-        _classCallCheck(this, Breadcrumbs);
+var _createText = function _createText(routePath, params, resolver) {
+    var route = (0, _utils.lastOf)(routePath);
+    var text = route.breadcrumbName || route.name || route.component.name;
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Breadcrumbs).call(this, props));
+    return resolver(text, _paramReplace(text, params), routePath, route);
+};
 
-        _this._paramReplace = _this._paramReplace.bind(_this);
-        _this._createText = _this._createText.bind(_this);
-        _this._createHref = _this._createHref.bind(_this);
-        _this._toCrumb = _this._toCrumb.bind(_this);
-        return _this;
-    }
+var _createHref = function _createHref(routePath, params) {
+    var link = routePath.map(function (route) {
+        return route.breadcrumbLink || route.path || '';
+    }).map(function (routeName) {
+        return routeName.startsWith('/') ? routeName : '/' + routeName;
+    }).join('').replace(/\/\//g, '/');
 
-    _createClass(Breadcrumbs, [{
-        key: '_paramReplace',
-        value: function _paramReplace(text) {
-            var params = this.props.params;
+    return link.replace(paramKeys, function (_, key) {
+        return params[key] || key;
+    });
+};
 
-            return text.replace(paramKeys, function (_, key) {
-                return params[key] || key;
-            });
-        }
-    }, {
-        key: '_createText',
-        value: function _createText(routePath) {
-            var resolver = this.props.resolver;
+var _toCrumb = function _toCrumb(_ref) {
+    var params = _ref.params;
+    var createLink = _ref.createLink;
+    var resolver = _ref.resolver;
+    return function (route, index, routes) {
+        var routePath = routes.slice(0, index + 1);
+        var text = _createText(routePath, params, resolver);
+        var link = _createHref(routePath, params);
+        var key = safeKey(text + '--' + link);
 
-            var route = (0, _utils.lastOf)(routePath);
-            var text = route.breadcrumbName || route.name || route.component.name;
+        return createLink(link, key, text, index, routes);
+    };
+};
 
-            return resolver(text, this._paramReplace(text), routePath, route);
-        }
-    }, {
-        key: '_createHref',
-        value: function _createHref(routePath) {
-            var params = this.props.params;
+function Breadcrumbs(_ref2) {
+    var routes = _ref2.routes;
+    var createSeparator = _ref2.createSeparator;
+    var className = _ref2.className;
+    var wrappingComponent = _ref2.wrappingComponent;
+    var prefixElements = _ref2.prefixElements;
+    var suffixElements = _ref2.suffixElements;
+    var params = _ref2.params;
+    var createLink = _ref2.createLink;
+    var resolver = _ref2.resolver;
 
-            var link = routePath.map(function (route) {
-                return route.breadcrumbLink || route.path || '';
-            }).map(function (routeName) {
-                return routeName.startsWith('/') ? routeName : '/' + routeName;
-            }).join('').replace(/\/\//g, '/');
+    var crumbs = (0, _utils.on)(routes).filter((0, _utils.not)((0, _utils.where)((0, _utils.pluck)('breadcrumbIgnore'), (0, _utils.isEqualTo)(true)))).map(_toCrumb({ params: params, createLink: createLink, resolver: resolver })).reduce((0, _utils.join)(createSeparator), []);
 
-            return link.replace(paramKeys, function (_, key) {
-                return params[key] || key;
-            });
-        }
-    }, {
-        key: '_toCrumb',
-        value: function _toCrumb() {
-            var _this2 = this;
+    var allCrumbs = (0, _utils.on)(prefixElements).concat(crumbs).concat((0, _utils.on)(suffixElements));
 
-            var createLink = this.props.createLink;
-
-            return function (route, index, routes) {
-                var routePath = routes.slice(0, index + 1);
-                var text = _this2._createText(routePath);
-                var link = _this2._createHref(routePath);
-                var key = safeKey(text + '--' + link);
-
-                return createLink(link, key, text, index, routes);
-            };
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _props = this.props;
-            var routes = _props.routes;
-            var createSeparator = _props.createSeparator;
-            var className = _props.className;
-            var wrappingComponent = _props.wrappingComponent;
-            var prefixElements = _props.prefixElements;
-            var suffixElements = _props.suffixElements;
-
-            var crumbs = (0, _utils.on)(routes).filter((0, _utils.not)((0, _utils.where)((0, _utils.pluck)('breadcrumbIgnore'), (0, _utils.isEqualTo)(true)))).map(this._toCrumb()).reduce((0, _utils.join)(createSeparator), []);
-
-            var allCrumbs = (0, _utils.on)(prefixElements).concat(crumbs).concat((0, _utils.on)(suffixElements));
-
-            return _react2.default.createElement(wrappingComponent, { className: className }, allCrumbs);
-        }
-    }]);
-
-    return Breadcrumbs;
-}(_react.Component);
+    return _react2.default.createElement(wrappingComponent, { className: className }, allCrumbs);
+}
 
 Breadcrumbs.defaultProps = {
     wrappingComponent: 'div',

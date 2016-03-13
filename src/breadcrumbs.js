@@ -1,4 +1,4 @@
-import React, { Component, PropTypes as PT } from 'react';
+import React, { PropTypes as PT } from 'react';
 import { Link, PropTypes as RouterProps } from 'react-router';
 import { on, not, where, pluck, isEqualTo, join, lastOf } from './utils';
 
@@ -11,72 +11,54 @@ const defaultLink = (link, key, text, index, routes) => <Link to={link} key={key
 const defaultSeparator = (crumb, index, array) => <span key={`separator-${index}`}> &gt; </span>;
 /* eslint-enable */
 
-// eslint-disable-next-line react/prefer-stateless-function
-class Breadcrumbs extends Component {
-    constructor(props) {
-        super(props);
+const _paramReplace = (text, params) => text.replace(paramKeys, (_, key) => (params[key] || key));
 
-        this._paramReplace = this._paramReplace.bind(this);
-        this._createText = this._createText.bind(this);
-        this._createHref = this._createHref.bind(this);
-        this._toCrumb = this._toCrumb.bind(this);
-    }
+const _createText = (routePath, params, resolver) => {
+    const route = lastOf(routePath);
+    const text = route.breadcrumbName || route.name || route.component.name;
 
-    _paramReplace(text) {
-        const { params } = this.props;
-        return text.replace(paramKeys, (_, key) => (params[key] || key));
-    }
+    return resolver(text, _paramReplace(text, params), routePath, route);
+};
 
-    _createText(routePath) {
-        const { resolver } = this.props;
-        const route = lastOf(routePath);
-        const text = route.breadcrumbName || route.name || route.component.name;
+const _createHref = (routePath, params) => {
+    const link = routePath
+        .map((route) => route.breadcrumbLink || route.path || '')
+        .map((routeName) => routeName.startsWith('/') ? routeName : `/${routeName}`)
+        .join('')
+        .replace(/\/\//g, '/');
 
-        return resolver(text, this._paramReplace(text), routePath, route);
-    }
+    return link.replace(paramKeys, (_, key) => (params[key] || key));
+};
 
-    _createHref(routePath) {
-        const { params } = this.props;
-        const link = routePath
-            .map((route) => route.breadcrumbLink || route.path || '')
-            .map((routeName) => routeName.startsWith('/') ? routeName : `/${routeName}`)
-            .join('')
-            .replace(/\/\//g, '/');
+const _toCrumb = ({ params, createLink, resolver }) =>
+    (route, index, routes) => {
+        const routePath = routes.slice(0, index + 1);
+        const text = _createText(routePath, params, resolver);
+        const link = _createHref(routePath, params);
+        const key = safeKey(`${text}--${link}`);
 
-        return link.replace(paramKeys, (_, key) => (params[key] || key));
-    }
+        return createLink(link, key, text, index, routes);
+    };
 
-    _toCrumb() {
-        const { createLink } = this.props;
-        return (route, index, routes) => {
-            const routePath = routes.slice(0, index + 1);
-            const text = this._createText(routePath);
-            const link = this._createHref(routePath);
-            const key = safeKey(`${text}--${link}`);
+function Breadcrumbs({
+    routes,
+    createSeparator,
+    className,
+    wrappingComponent,
+    prefixElements,
+    suffixElements,
+    params,
+    createLink,
+    resolver
+    }) {
+    const crumbs = on(routes)
+        .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
+        .map(_toCrumb({ params, createLink, resolver }))
+        .reduce(join(createSeparator), []);
 
-            return createLink(link, key, text, index, routes);
-        };
-    }
+    const allCrumbs = on(prefixElements).concat(crumbs).concat(on(suffixElements));
 
-    render() {
-        const {
-            routes,
-            createSeparator,
-            className,
-            wrappingComponent,
-            prefixElements,
-            suffixElements
-            } = this.props;
-
-        const crumbs = on(routes)
-            .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
-            .map(this._toCrumb())
-            .reduce(join(createSeparator), []);
-
-        const allCrumbs = on(prefixElements).concat(crumbs).concat(on(suffixElements));
-
-        return React.createElement(wrappingComponent, { className }, allCrumbs);
-    }
+    return React.createElement(wrappingComponent, { className }, allCrumbs);
 }
 
 Breadcrumbs.defaultProps = {
