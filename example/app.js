@@ -1,7 +1,7 @@
 /* eslint react/no-multi-comp:0 */
 /* eslint react/prop-types:0 */
 import React from 'react';
-import Breadcrumbs, { combineResolvers, textResolver, resolver, key, childOf, pathname, path, debug } from '../src/index.js';
+import Breadcrumbs, { combineResolvers, textResolver, resolver, key, childOf, pathname, path } from '../src/index.js';
 import { Link } from 'react-router';
 
 const userlist = [
