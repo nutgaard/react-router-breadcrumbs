@@ -67,6 +67,7 @@ class Breadcrumbs extends Component {
             prefixElements,
             suffixElements
             } = this.props;
+
         const crumbs = on(routes)
             .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
             .map(this._toCrumb())

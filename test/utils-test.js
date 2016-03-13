@@ -121,6 +121,22 @@ describe('Utils.fn', () => {
     });
 });
 
+describe('Utils.join', () => {
+    const arr = ['a', 'b', 'c'];
+
+    it('should interleave separator value', () => {
+        const res = arr.reduce(Utils.join('sep'), []);
+
+        expect(res).to.deep.equal(['a', 'sep', 'b', 'sep', 'c']);
+    });
+
+    it('should handle function separator', () => {
+        const res = arr.reduce(Utils.join(() => 'test'), []);
+
+        expect(res).to.deep.equal(['a', 'test', 'b', 'test', 'c']);
+    });
+});
+
 describe('Utils.lastOf', () => {
     it('should return last element in array', () => {
         const res = Utils.lastOf([5, 6, 7, 8]);
@@ -140,21 +156,5 @@ describe('Utils.lastOf', () => {
         const res = Utils.lastOf([]);
 
         expect(res).to.equal(undefined);
-    });
-});
-
-describe('Utils.join', () => {
-    const arr = ['a', 'b', 'c'];
-
-    it('should interleave separator value', () => {
-        const res = arr.reduce(Utils.join('sep'), []);
-
-        expect(res).to.deep.equal(['a', 'sep', 'b', 'sep', 'c']);
-    });
-
-    it('should handle function separator', () => {
-        const res = arr.reduce(Utils.join(() => 'test'), []);
-
-        expect(res).to.deep.equal(['a', 'test', 'b', 'test', 'c']);
     });
 });
