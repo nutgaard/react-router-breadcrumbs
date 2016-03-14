@@ -48,6 +48,15 @@ describe('ResolverUtils.combineResolvers', () => {
     });
 });
 
+describe('ResolverUtils.debugger', () => {
+    it('should call debugger before function', () => {
+        const fn = Utils.debug(() => 'value');
+        const res = fn();
+
+        expect(res).to.equal('value');
+    });
+});
+
 describe('ResolverUtils.key', () => {
     it('should check object reference', () => {
         const obj1 = {};
@@ -152,5 +161,13 @@ describe('ResolverUtils.resolver', () => {
 
         expect(callback.notCalled).to.equal(true);
         expect(res).to.equal(undefined);
+    });
+});
+
+describe('ResolverUtils.textResolver', () => {
+    it('should return second argument', () => {
+        const res = Utils.textResolver('arg1', 'arg2');
+
+        expect(res).to.equal('arg2');
     });
 });
