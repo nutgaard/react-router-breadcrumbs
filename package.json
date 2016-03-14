@@ -27,7 +27,8 @@
     "lint": "esw src/ test/",
     "lintdev": "esw -w src/ test/",
     "prepublish": "npm run build",
-    "dev": "npm-run-all --parallel tdd lintdev"
+    "dev": "npm-run-all --parallel tdd lintdev",
+    "coverage": "babel-node ./node_modules/istanbul/lib/cli cover node_modules/mocha/bin/_mocha -- --require test/.setup.js --bail --recursive test/**/*-test.js"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
@@ -44,6 +45,7 @@
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.1",
     "eslint-watch": "^2.1.10",
+    "istanbul": "^1.0.0-alpha.2",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "npm-run-all": "^1.5.3",
