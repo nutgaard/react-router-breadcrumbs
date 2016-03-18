@@ -156,7 +156,17 @@ var App = exports.App = function App(_ref) {
                     null,
                     'Content'
                 ),
-                children
+                children,
+                _react2.default.createElement(
+                    'a',
+                    { href: 'https://github.com/nutgaard/react-router-breadcrumbs', className: 'github' },
+                    _react2.default.createElement('img', { src: 'GitHub-logo.png', alt: 'Github link to repository' }),
+                    _react2.default.createElement(
+                        'h4',
+                        { className: 'github-link' },
+                        'Check out the GitHub Repository'
+                    )
+                )
             )
         )
     );

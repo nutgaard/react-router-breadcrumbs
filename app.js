@@ -50,6 +50,10 @@ export const App = ({ routes, params, children }) => (
                 <Link to="/parent-2/child1/item1/child2/item2/child3">Child3-2</Link>{" "}
                 <h3>Content</h3>
                 {children}
+                <a href="https://github.com/nutgaard/react-router-breadcrumbs" className="github">
+                    <img src="GitHub-logo.png" alt="Github link to repository"/>
+                    <h4 className="github-link">Check out the GitHub Repository</h4>
+                </a>
             </div>
         </div>
     </div>
