@@ -1,0 +1,11 @@
+language: node_js
+
+node_js:
+  - 5.8.0
+
+install:
+  - npm install
+  - npm install codecov -g
+
+script:
+  - npm run travis

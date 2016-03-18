@@ -28,7 +28,9 @@
     "lintdev": "esw -w src/ test/",
     "prepublish": "npm run build",
     "dev": "npm-run-all --parallel tdd lintdev",
-    "coverage": "babel-node ./node_modules/istanbul/lib/cli cover node_modules/mocha/bin/_mocha -- --require test/.setup.js --bail --recursive test/**/*-test.js"
+    "coverage": "babel-node ./node_modules/istanbul/lib/cli cover node_modules/mocha/bin/_mocha -- --require test/.setup.js --bail --recursive test/**/*-test.js",
+    "codecov": "babel-node ./node_modules/istanbul/lib/cli cover node_modules/mocha/bin/_mocha -- --require test/.setup.js --bail --report lcovonly --recursive test/**/*-test.js && codecov",
+    "travis": "npm run lint && npm run codecov"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
