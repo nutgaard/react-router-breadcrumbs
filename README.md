@@ -125,4 +125,4 @@ In addition a polyfill for `Array.includes` is needed if you are targeting a bro
 1. If a breadcrumbLink and the route.path is both falsy the component uses a empty string. Suggest adding a default message/invariant/console.error to warn the user
 
 ## Example
-The example can be seen at <url> and is greatly inspired by https://github.com/svenanders/react-breadcrumbs which provides a similar breadcrumb component. 
+The example can be seen at [http://git.utgaard.xyz/react-router-breadcrumbs/](http://git.utgaard.xyz/react-router-breadcrumbs/) and is greatly inspired by https://github.com/svenanders/react-breadcrumbs which provides a similar breadcrumb component. 
