@@ -3,6 +3,9 @@ A react-component for creating breadcrumbs based on your current active route.
 
 [![travic-ci.org](https://travis-ci.org/nutgaard/react-router-breadcrumbs.svg?branch=master)](https://travis-ci.org/nutgaard/react-router-breadcrumbs)
 [![codecov.io](https://codecov.io/github/nutgaard/react-router-breadcrumbs/coverage.svg?branch=master)](https://codecov.io/github/nutgaard/react-router-breadcrumbs?branch=master)
+[![Dependency Status](https://david-dm.org/nutgaard/react-router-breadcrumbs.svg)](https://david-dm.org/nutgaard/react-router-breadcrumbs)
+[![devDependency Status](https://david-dm.org/nutgaard/react-router-breadcrumbs/dev-status.svg)](https://david-dm.org/nutgaard/react-router-breadcrumbs#info=devDependencies)
+[![peerDependency Status](https://david-dm.org/nutgaard/react-router-breadcrumbs/peer-status.svg)](https://david-dm.org/nutgaard/react-router-breadcrumbs#info=peerDependencies)
 
 [DEMO](http://git.utgaard.xyz/react-router-breadcrumbs/)
 
