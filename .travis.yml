@@ -8,4 +8,4 @@ install:
   - npm install codecov -g
 
 script:
-  - npm run travis
+  - npm run circle
