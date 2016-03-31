@@ -1,0 +1,45 @@
+#!/bin/sh
+
+files=$(git diff --cached --name-only --diff-filter=ACM | grep -E ".jsx?$")
+if [ "$files" = "" ]; then 
+    exit 0 
+fi
+
+pass=true
+
+echo "\nValidating JavaScript:\n"
+
+for file in ${files}; do
+    isTestFile=$(echo $file | grep -E "^test/.+?-test")
+    lintResult=$(./node_modules/.bin/esw ${file} | grep -E "✓ Clean")
+
+    if [ "$isTestFile" != "" ]; then
+        testFile=$file
+    else
+        testFile=${file#*/}
+        testFile=${testFile%.*}
+        testFile="test/$testFile-test.js"
+    fi
+    testResult=$(./node_modules/.bin/mocha test/.setup.js $testFile --compilers js:babel-core/register | grep -E "\d+ failing")
+
+    if [ "$lintResult" != "" ] && [ "$testResult" == "" ]; then
+        echo "\t\033[32mESLint and tests passed: ${file}\033[0m"
+    else
+        if [ "$lintResult" == "" ]; then
+            echo "\t\033[31mESLint failed: ${file}\033[0m"
+        fi
+        if [ "$testResult" != "" ]; then
+            echo "\t\033[31mTests failed: ${file} - ${testFile}\033[0m"
+        fi
+        pass=false
+    fi
+done
+
+echo "\nJavaScript validation complete\n"
+
+if ! $pass; then
+    echo "\033[31mCOMMIT FAILED:\033[0m Your commit contains files that should pass ESLint but do not. Please fix the ESLint errors and try again.\n"
+    exit 1
+else
+    echo "\033[32mCOMMIT SUCCEEDED\033[0m\n"
+fi

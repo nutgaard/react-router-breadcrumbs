@@ -1,0 +1,10 @@
+machine:
+  node:
+    version: 5.1.0
+dependencies:
+  override:
+    - npm install
+    - npm install codecov -g
+test:
+  override:
+    - npm run circle
