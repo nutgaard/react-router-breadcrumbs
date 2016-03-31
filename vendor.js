@@ -3210,7 +3210,7 @@ exports.parse = function (str) {
 		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
 		val = val === undefined ? null : decodeURIComponent(val);
 
-		if (!ret[key]) {
+		if (!ret.hasOwnProperty(key)) {
 			ret[key] = val;
 		} else if (Array.isArray(ret[key])) {
 			ret[key].push(val);
@@ -3219,7 +3219,7 @@ exports.parse = function (str) {
 		}
 
 		return ret;
-	}, Object.create(null));
+	}, {});
 };
 
 exports.stringify = function (obj) {
