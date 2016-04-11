@@ -44,7 +44,7 @@
     "chai": "^3.5.0",
     "enzyme": "^2.1.0",
     "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^6.1.0",
+    "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-react": "^4.2.1",
     "eslint-watch": "^2.1.10",
     "in-publish": "^2.0.0",
