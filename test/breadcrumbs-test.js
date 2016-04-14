@@ -5,6 +5,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import * as Func from './../src/breadcrumbs';
+// eslint-disable-next-line no-duplicate-imports
 import Breadcrumbs from './../src/breadcrumbs';
 
 describe('Breadcrumbs', () => {
