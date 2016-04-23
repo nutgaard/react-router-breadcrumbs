@@ -11,36 +11,36 @@ export const defaultLink = (link, key, text, index, routes) => <Link to={link} k
 export const defaultSeparator = (crumb, index, array) => <span key={`separator-${index}`}> &gt; </span>;
 /* eslint-enable */
 
-export const _paramReplace = (text, params = {}) => text.replace(paramKeys, (_, key) => (params[key] || key));
+export const paramReplace = (text, params = {}) => text.replace(paramKeys, (_, key) => (params[key] || key));
 
-export const _createText = (routePath, params, resolver) => {
+export const createText = (routePath, params, resolver) => {
     const route = lastOf(routePath);
     const text = route.breadcrumbName || route.name || route.component.name;
 
-    return resolver(text, _paramReplace(text, params), routePath, route);
+    return resolver(text, paramReplace(text, params), routePath, route);
 };
 
-export const _createHref = (routePath, params) => {
+export const createHref = (routePath, params) => {
     const link = routePath
         .map((route) => route.breadcrumbLink || route.path || '')
         .map((routeName) => routeName.startsWith('/') ? routeName : `/${routeName}`)
         .join('')
         .replace(/\/\//g, '/');
 
-    return _paramReplace(link, params);
+    return paramReplace(link, params);
 };
 
-export const _toCrumb = ({ params, createLink, resolver }) =>
+export const toCrumb = ({ params, createLink, resolver }) =>
     (route, index, routes) => {
         const routePath = routes.slice(0, index + 1);
-        const text = _createText(routePath, params, resolver);
-        const link = _createHref(routePath, params);
+        const text = createText(routePath, params, resolver);
+        const link = createHref(routePath, params);
         const key = safeKey(`${text}--${link}`);
 
         return createLink(link, key, text, index, routes);
     };
 
-export const _renderCrumbs = ({
+export const renderCrumbs = ({
     routes,
     createSeparator,
     prefixElements,
@@ -51,14 +51,14 @@ export const _renderCrumbs = ({
     }) => {
     const crumbs = on(routes)
         .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
-        .map(_toCrumb({ params, createLink, resolver }))
+        .map(toCrumb({ params, createLink, resolver }))
         .reduce(join(createSeparator), []);
 
     return on(prefixElements).concat(crumbs).concat(on(suffixElements));
 };
 
 function Breadcrumbs({ className, wrappingComponent, ...props }) {
-    const crumbs = _renderCrumbs(props);
+    const crumbs = renderCrumbs(props);
     return React.createElement(wrappingComponent, { className }, crumbs);
 }
 

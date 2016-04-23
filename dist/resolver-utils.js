@@ -24,7 +24,7 @@ function combineResolvers() {
 
 var debug = exports.debug = function debug(fn) {
     return function () {
-        debugger; // eslint-disable-line no-debugger
+        debugger; // eslint-disable-line no-debugger, no-restricted-syntax
         return fn.apply(undefined, arguments);
     };
 };

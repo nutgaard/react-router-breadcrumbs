@@ -59,21 +59,21 @@ describe('Breadcrumbs', () => {
         });
     });
 
-    describe('_paramReplace', () => {
+    describe('paramReplace', () => {
         it('should return same text if nothing can be replaced', () => {
-            const res = Func._paramReplace('abcdef123');
+            const res = Func.paramReplace('abcdef123');
 
             expect(res).to.equal('abcdef123');
         });
 
         it('should return same text if no params are provided', () => {
-            const res = Func._paramReplace(':param1');
+            const res = Func.paramReplace(':param1');
 
             expect(res).to.equal('param1');
         });
 
         it('should replace all params in text that are provided', () => {
-            const res = Func._paramReplace(':param1/:param2/:param3', {
+            const res = Func.paramReplace(':param1/:param2/:param3', {
                 param1: 'val1',
                 param3: 'val3'
             });
@@ -82,12 +82,12 @@ describe('Breadcrumbs', () => {
         });
     });
 
-    describe('_createText', () => {
+    describe('createText', () => {
         it('should call resolver with text, param-replaced-text, routepath and route', () => {
             const resolver = spy();
             const route = { ...defaultRoute, breadcrumbName: ':param1' };
             const routePath = [{ ...route }, route];
-            Func._createText(routePath, { param1: 'value1' }, resolver);
+            Func.createText(routePath, { param1: 'value1' }, resolver);
 
             expect(resolver.calledWithExactly(':param1', 'value1', routePath, route)).to.equal(true);
         });
@@ -98,9 +98,9 @@ describe('Breadcrumbs', () => {
             const routenameTest = [undefined, { name: 'routename', component: { name: 'componentname' } }];
             const breadcrumbTest = [undefined, { ...defaultRoute }];
 
-            const componentNameRes = Func._createText(componentNameTest, {}, textResolver);
-            const routenameRes = Func._createText(routenameTest, {}, textResolver);
-            const breadcrumbRes = Func._createText(breadcrumbTest, {}, textResolver);
+            const componentNameRes = Func.createText(componentNameTest, {}, textResolver);
+            const routenameRes = Func.createText(routenameTest, {}, textResolver);
+            const breadcrumbRes = Func.createText(breadcrumbTest, {}, textResolver);
 
             expect(componentNameRes).to.equal('componentname');
             expect(routenameRes).to.equal('routename');
@@ -108,11 +108,11 @@ describe('Breadcrumbs', () => {
         });
     });
 
-    describe('_createHref', () => {
+    describe('createHref', () => {
         it('should use breadcrumbLink, then route.path then empty string as link', () => {
-            const linkRes = Func._createHref([{ ...defaultRoute }, { ...defaultRoute }], {});
-            const pathRes = Func._createHref([{ ...defaultRoute }, { ...defaultRoute, breadcrumbLink: undefined }], {});
-            const emptyRes = Func._createHref([{ ...defaultRoute }, {
+            const linkRes = Func.createHref([{ ...defaultRoute }, { ...defaultRoute }], {});
+            const pathRes = Func.createHref([{ ...defaultRoute }, { ...defaultRoute, breadcrumbLink: undefined }], {});
+            const emptyRes = Func.createHref([{ ...defaultRoute }, {
                 ...defaultRoute,
                 breadcrumbLink: undefined,
                 path: undefined
@@ -124,7 +124,7 @@ describe('Breadcrumbs', () => {
         });
 
         it('should add and remove slashed to avoid duplicates', () => {
-            const res = Func._createHref([
+            const res = Func.createHref([
                 { breadcrumbLink: 'path' },
                 { breadcrumbLink: 'path' },
                 { breadcrumbLink: 'path' },
@@ -137,7 +137,7 @@ describe('Breadcrumbs', () => {
         });
 
         it('should replace keys with the params provided', () => {
-            const res = Func._createHref([
+            const res = Func.createHref([
                 { breadcrumbLink: ':item1' },
                 { breadcrumbLink: ':item2' },
                 { breadcrumbLink: ':item3' }
@@ -152,7 +152,7 @@ describe('Breadcrumbs', () => {
     describe('_toCrumbs', () => {
         it('should return link', () => {
             const linkSpy = spy();
-            const toCrumbFn = Func._toCrumb({
+            const toCrumbFn = Func.toCrumb({
                 params: {},
                 createLink: linkSpy,
                 resolver: () => 'RESOLVER_SPY_'
@@ -171,7 +171,7 @@ describe('Breadcrumbs', () => {
         });
     });
 
-    describe('_renderCrumbs', () => {
+    describe('renderCrumbs', () => {
         const defaultProps = {
             routes: [{ ...defaultRoute }, { ...defaultRoute, breadcrumbIgnore: true }, { ...defaultRoute }],
             params: {},
@@ -183,7 +183,7 @@ describe('Breadcrumbs', () => {
         };
 
         it('should ignore routes with breadcrumbIgnore', () => {
-            const res = Func._renderCrumbs(defaultProps);
+            const res = Func.renderCrumbs(defaultProps);
 
             expect(res.length).to.equal(3); // Link - Separator - Link
             expect(res[0].type.displayName).to.equal('Link');
@@ -192,7 +192,7 @@ describe('Breadcrumbs', () => {
         });
 
         it('should append prefixElement to the front, and allow for React.element as prop', () => {
-            const res = Func._renderCrumbs({
+            const res = Func.renderCrumbs({
                 ...defaultProps,
                 prefixElements: <p>Test</p>
             });
@@ -205,7 +205,7 @@ describe('Breadcrumbs', () => {
         });
 
         it('should append prefixElement to the front, and allow for array of React.element as prop', () => {
-            const res = Func._renderCrumbs({
+            const res = Func.renderCrumbs({
                 ...defaultProps,
                 prefixElements: [<p>Test</p>, <h1>Test</h1>]
             });
@@ -219,7 +219,7 @@ describe('Breadcrumbs', () => {
         });
 
         it('should append suffixElements to the end, and allow for React.element as prop', () => {
-            const res = Func._renderCrumbs({
+            const res = Func.renderCrumbs({
                 ...defaultProps,
                 suffixElements: <p>Test</p>
             });
@@ -232,7 +232,7 @@ describe('Breadcrumbs', () => {
         });
 
         it('should append suffixElements to the end, and allow for array of React.element as prop', () => {
-            const res = Func._renderCrumbs({
+            const res = Func.renderCrumbs({
                 ...defaultProps,
                 suffixElements: [<p>Test</p>, <h1>Test</h1>]
             });
