@@ -4,8 +4,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { spy } from 'sinon';
+// eslint-disable-next-line import/no-duplicates
 import * as Func from './../src/breadcrumbs';
-// eslint-disable-next-line no-duplicate-imports
+// eslint-disable-next-line import/no-duplicates, no-duplicate-imports
 import Breadcrumbs from './../src/breadcrumbs';
 
 describe('Breadcrumbs', () => {
