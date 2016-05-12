@@ -11,7 +11,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
+var _routerProps = require('./router-props');
+
+var RouterProps = _interopRequireWildcard(_routerProps);
+
 var _utils = require('./utils');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -116,7 +122,7 @@ Breadcrumbs.defaultProps = {
 };
 
 Breadcrumbs.propTypes = {
-    routes: _react.PropTypes.arrayOf(_reactRouter.PropTypes.route).isRequired,
+    routes: RouterProps.routes.isRequired,
     params: _react.PropTypes.object,
     resolver: _react.PropTypes.func,
     createLink: _react.PropTypes.func,

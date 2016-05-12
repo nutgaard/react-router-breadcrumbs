@@ -1,5 +1,6 @@
 import React, { PropTypes as PT } from 'react';
-import { Link, PropTypes as RouterProps } from 'react-router';
+import { Link } from 'react-router';
+import * as RouterProps from './router-props';
 import { on, not, where, pluck, isEqualTo, join, lastOf } from './utils';
 
 const paramKeys = /:(\w+)/g;
@@ -74,7 +75,7 @@ Breadcrumbs.defaultProps = {
 };
 
 Breadcrumbs.propTypes = {
-    routes: PT.arrayOf(RouterProps.route).isRequired,
+    routes: RouterProps.routes.isRequired,
     params: PT.object,
     resolver: PT.func,
     createLink: PT.func,
