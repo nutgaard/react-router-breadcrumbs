@@ -51,7 +51,7 @@
     "eslint-watch": "^2.1.11",
     "in-publish": "^2.0.0",
     "isparta": "^4.0.0",
-    "jsdom": "^9.0.0",
+    "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
     "npm-run-all": "^2.0.0",
     "react": "^15.0.2",
