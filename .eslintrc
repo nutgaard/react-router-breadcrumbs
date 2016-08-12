@@ -9,6 +9,8 @@
     "comma-dangle": [2, "never"],
     "react/jsx-indent-props": [2, 4],
     "arrow-parens": [2, "always"],
-    "no-confusing-arrow": [0]
+    "no-confusing-arrow": [0],
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true }]
   }
 }
