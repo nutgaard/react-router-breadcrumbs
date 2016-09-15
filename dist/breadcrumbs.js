@@ -107,6 +107,9 @@ function Breadcrumbs(_ref3) {
     var props = _objectWithoutProperties(_ref3, ['className', 'wrappingComponent']);
 
     var crumbs = renderCrumbs(props);
+
+    if (crumbs.length === 0) return null;
+
     return _react2.default.createElement(wrappingComponent, { className: className }, crumbs);
 }
 

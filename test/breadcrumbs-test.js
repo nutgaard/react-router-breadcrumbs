@@ -248,8 +248,16 @@ describe('Breadcrumbs', () => {
     });
 
     describe('Component', () => {
+        it('should return a null component if there are no crumbs (or routes)', () => {
+            const routes = [{ ...defaultRoute, breadcrumbIgnore: true }];
+            const wrapper = shallow(<Breadcrumbs routes={routes} />);
+
+            expect(wrapper.node).to.equal(null);
+        });
+
         it('should render div as default wrappingComponent', () => {
-            const wrapper = shallow(<Breadcrumbs routes={[]} />);
+            const routes = [{ ...defaultRoute }];
+            const wrapper = shallow(<Breadcrumbs routes={routes} />);
 
             const wrappingComponent = wrapper.find('div.breadcrumbs');
             expect(wrappingComponent.length).to.equal(1);
@@ -257,7 +265,8 @@ describe('Breadcrumbs', () => {
         });
 
         it('should respect wrappingComponent and className props', () => {
-            const wrapper = shallow(<Breadcrumbs routes={[]} wrappingComponent="article" className="custom" />);
+            const routes = [{ ...defaultRoute }];
+            const wrapper = shallow(<Breadcrumbs routes={routes} wrappingComponent="article" className="custom" />);
 
             const wrappingComponent = wrapper.find('article.custom');
             expect(wrappingComponent.length).to.equal(1);
