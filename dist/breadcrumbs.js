@@ -77,6 +77,10 @@ var toCrumb = exports.toCrumb = function toCrumb(_ref) {
     var createLink = _ref.createLink;
     var resolver = _ref.resolver;
     return function (route, index, routes) {
+        if (route.breadcrumbIgnore) {
+            return route;
+        }
+
         var routePath = routes.slice(0, index + 1);
         var text = createText(routePath, params, resolver);
         var link = createHref(routePath, params);
@@ -95,7 +99,7 @@ var renderCrumbs = exports.renderCrumbs = function renderCrumbs(_ref2) {
     var createLink = _ref2.createLink;
     var resolver = _ref2.resolver;
 
-    var crumbs = (0, _utils.on)(routes).filter((0, _utils.not)((0, _utils.where)((0, _utils.pluck)('breadcrumbIgnore'), (0, _utils.isEqualTo)(true)))).map(toCrumb({ params: params, createLink: createLink, resolver: resolver })).reduce((0, _utils.join)(createSeparator), []);
+    var crumbs = (0, _utils.on)(routes).map(toCrumb({ params: params, createLink: createLink, resolver: resolver })).filter((0, _utils.not)((0, _utils.where)((0, _utils.pluck)('breadcrumbIgnore'), (0, _utils.isEqualTo)(true)))).reduce((0, _utils.join)(createSeparator), []);
 
     return (0, _utils.on)(prefixElements).concat(crumbs).concat((0, _utils.on)(suffixElements));
 };
@@ -108,7 +112,9 @@ function Breadcrumbs(_ref3) {
 
     var crumbs = renderCrumbs(props);
 
-    if (crumbs.length === 0) return null;
+    if (crumbs.length === 0) {
+        return null;
+    }
 
     return _react2.default.createElement(wrappingComponent, { className: className }, crumbs);
 }

@@ -272,5 +272,25 @@ describe('Breadcrumbs', () => {
             expect(wrappingComponent.length).to.equal(1);
             expect(wrappingComponent.find('*').length).to.equal(0);
         });
+
+        it('should include ignored routes in link', () => {
+            const routes = [
+                { ...defaultRoute },
+                { ...defaultRoute, breadcrumbIgnore: true },
+                { ...defaultRoute, breadcrumbIgnore: true },
+                { ...defaultRoute }
+            ];
+
+            const wrapper = shallow(<Breadcrumbs routes={routes} />);
+
+            const wrappingComponent = wrapper.find('div.breadcrumbs');
+            expect(wrappingComponent.length).to.equal(1);
+
+            const links = wrappingComponent.find('Link');
+            expect(links.length).to.equal(2);
+
+            const lastLink = links.get(1).props.to;
+            expect(lastLink.match(/breadcrumbLink/g).length).to.equal(4);
+        });
     });
 });
