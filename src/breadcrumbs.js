@@ -61,7 +61,9 @@ export const renderCrumbs = ({
 function Breadcrumbs({ className, wrappingComponent, ...props }) {
     const crumbs = renderCrumbs(props);
 
-    if (crumbs.length === 0) return null;
+    if (crumbs.length === 0) {
+        return null;
+    }
 
     return React.createElement(wrappingComponent, { className }, crumbs);
 }
