@@ -48,6 +48,10 @@ export const App = ({ routes, params, children }) => (
                 <Link to="/parent-2/child1/item1/child2">Child2-2</Link>{" "}
                 <Link to="/parent-2/child1/item1/child2/item2">Item2-2</Link>{" "}
                 <Link to="/parent-2/child1/item1/child2/item2/child3">Child3-2</Link>{" "}
+
+                <h3>Deeplink</h3>
+                <Link to="/context/publishers">Publishers</Link>{" "}
+                <Link to="/context/publishers/myId">Publishers</Link>
                 <h3>Content</h3>
                 {children}
             </div>
@@ -195,5 +199,18 @@ export const User = (props) => (
         <Link to={`/users/${props.params.userId}/image`}>Images here</Link>
         <br />
         {props.children}
+    </div>
+);
+
+export const PublishersPage = ({params}) => (
+    <div>
+        <h1>PublishersPage</h1>
+        <span>{JSON.stringify(params)}</span>
+    </div>
+);
+export const PublisherPageContainer = ({params}) => (
+    <div>
+        <h1>PublisherPageContainer</h1>
+        <span>{JSON.stringify(params)}</span>
     </div>
 );
