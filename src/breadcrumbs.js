@@ -33,6 +33,10 @@ export const createHref = (routePath, params) => {
 
 export const toCrumb = ({ params, createLink, resolver }) =>
     (route, index, routes) => {
+        if (route.breadcrumbIgnore) {
+            return route;
+        }
+
         const routePath = routes.slice(0, index + 1);
         const text = createText(routePath, params, resolver);
         const link = createHref(routePath, params);
@@ -51,8 +55,8 @@ export const renderCrumbs = ({
     resolver
     }) => {
     const crumbs = on(routes)
-        .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
         .map(toCrumb({ params, createLink, resolver }))
+        .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
         .reduce(join(createSeparator), []);
 
     return on(prefixElements).concat(crumbs).concat(on(suffixElements));
@@ -61,7 +65,9 @@ export const renderCrumbs = ({
 function Breadcrumbs({ className, wrappingComponent, ...props }) {
     const crumbs = renderCrumbs(props);
 
-    if (crumbs.length === 0) return null;
+    if (crumbs.length === 0) {
+        return null;
+    }
 
     return React.createElement(wrappingComponent, { className }, crumbs);
 }

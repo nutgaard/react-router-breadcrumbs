@@ -1,6 +1,6 @@
 import React from 'react';
-import { Router, Route, NoMatch, hashHistory } from 'react-router';
-import { App, Info, Users, User, UserDetails, UserImage } from './app.js';
+import { Router, Route, NoMatch, hashHistory, IndexRoute } from 'react-router';
+import { App, Info, Users, User, UserDetails, UserImage, PublishersPage, PublisherPageContainer } from './app.js';
 
 export default (
   <Router history={hashHistory}>
@@ -31,6 +31,12 @@ export default (
               </Route>
             </Route>
           </Route>
+        </Route>
+      </Route>
+      <Route path=":context" breadcrumbIgnore >
+        <Route path="publishers" breadcrumbIgnore >
+          <IndexRoute component={PublishersPage} breadcrumbIgnore />
+          <Route path=":publisherId" component={PublisherPageContainer} />
         </Route>
       </Route>
     </Route>
