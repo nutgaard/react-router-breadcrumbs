@@ -85,7 +85,7 @@ Breadcrumbs.defaultProps = {
 
 Breadcrumbs.propTypes = {
     routes: RouterProps.routes.isRequired,
-    params: PT.object,
+    params: PT.object, // eslint-disable-line react/forbid-prop-types
     resolver: PT.func,
     createLink: PT.func,
     createSeparator: PT.oneOfType([PT.func, PT.string]),
