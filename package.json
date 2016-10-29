@@ -28,8 +28,8 @@
     "lintdev": "esw -w src/ test/",
     "prepublish": "in-publish && npm run build || not-in-publish",
     "dev": "npm-run-all --parallel tdd lintdev",
-    "coverage": "babel-node ./node_modules/isparta/lib/cli cover node_modules/mocha/bin/_mocha -- --require test/.setup.js --bail --recursive test/**/*-test.js",
-    "codecov": "babel-node ./node_modules/isparta/lib/cli cover node_modules/mocha/bin/_mocha -- --require test/.setup.js --bail --report lcovonly --recursive test/**/*-test.js && codecov",
+    "coverage": "nyc npm test",
+    "codecov": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "circle": "npm run lint && npm run codecov"
   },
   "devDependencies": {
@@ -51,10 +51,10 @@
     "eslint-plugin-react": "6.4.1",
     "eslint-watch": "2.1.14",
     "in-publish": "2.0.0",
-    "isparta": "4.0.0",
     "jsdom": "9.8.3",
     "mocha": "3.1.2",
     "npm-run-all": "3.1.1",
+    "nyc": "^8.3.2",
     "react": "15.3.2",
     "react-addons-test-utils": "15.3.2",
     "react-dom": "15.3.2",
