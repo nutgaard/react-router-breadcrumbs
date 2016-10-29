@@ -118,8 +118,9 @@ This component has the newest react and react-router as peerdependenies, but wil
 If you test the component with lower versions of react and/or react-router please let me know so that the dependencies can be adjusted.
 
 ```
-"react": "^0.14.7",
-"react-router": "^2.0.0"
+"react": "^0.14.7 || ^15.0.1",
+"react-dom": "^0.14.7 || ^15.0.1",
+"react-router": "^2.0.1 || ^3.0.0"
 ```
 
 In addition a polyfill for `Array.includes` is needed if you are targeting a browser which does not support this.
