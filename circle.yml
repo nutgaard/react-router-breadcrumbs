@@ -6,9 +6,10 @@ machine:
   node:
     version: 5.1.0
 dependencies:
+  pre:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
   override:
-    - npm install
-    - npm install codecov -g
+    - yarn
 test:
   override:
-    - npm run circle
+    - yarn run circle

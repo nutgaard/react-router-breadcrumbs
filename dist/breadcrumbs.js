@@ -49,7 +49,7 @@ var defaultSeparator = exports.defaultSeparator = function defaultSeparator(crum
 /* eslint-enable */
 
 var paramReplace = exports.paramReplace = function paramReplace(text) {
-    var params = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     return text.replace(paramKeys, function (_, key) {
         return params[key] || key;
     });
@@ -73,9 +73,9 @@ var createHref = exports.createHref = function createHref(routePath, params) {
 };
 
 var toCrumb = exports.toCrumb = function toCrumb(_ref) {
-    var params = _ref.params;
-    var createLink = _ref.createLink;
-    var resolver = _ref.resolver;
+    var params = _ref.params,
+        createLink = _ref.createLink,
+        resolver = _ref.resolver;
     return function (route, index, routes) {
         if (route.breadcrumbIgnore) {
             return route;
@@ -91,13 +91,13 @@ var toCrumb = exports.toCrumb = function toCrumb(_ref) {
 };
 
 var renderCrumbs = exports.renderCrumbs = function renderCrumbs(_ref2) {
-    var routes = _ref2.routes;
-    var createSeparator = _ref2.createSeparator;
-    var prefixElements = _ref2.prefixElements;
-    var suffixElements = _ref2.suffixElements;
-    var params = _ref2.params;
-    var createLink = _ref2.createLink;
-    var resolver = _ref2.resolver;
+    var routes = _ref2.routes,
+        createSeparator = _ref2.createSeparator,
+        prefixElements = _ref2.prefixElements,
+        suffixElements = _ref2.suffixElements,
+        params = _ref2.params,
+        createLink = _ref2.createLink,
+        resolver = _ref2.resolver;
 
     var crumbs = (0, _utils.on)(routes).map(toCrumb({ params: params, createLink: createLink, resolver: resolver })).filter((0, _utils.not)((0, _utils.where)((0, _utils.pluck)('breadcrumbIgnore'), (0, _utils.isEqualTo)(true)))).reduce((0, _utils.join)(createSeparator), []);
 
@@ -105,10 +105,9 @@ var renderCrumbs = exports.renderCrumbs = function renderCrumbs(_ref2) {
 };
 
 function Breadcrumbs(_ref3) {
-    var className = _ref3.className;
-    var wrappingComponent = _ref3.wrappingComponent;
-
-    var props = _objectWithoutProperties(_ref3, ['className', 'wrappingComponent']);
+    var className = _ref3.className,
+        wrappingComponent = _ref3.wrappingComponent,
+        props = _objectWithoutProperties(_ref3, ['className', 'wrappingComponent']);
 
     var crumbs = renderCrumbs(props);
 

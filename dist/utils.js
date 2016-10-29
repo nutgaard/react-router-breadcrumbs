@@ -20,12 +20,12 @@ var not = exports.not = function not(predicate) {
     };
 };
 var where = exports.where = function where() {
-    var transformation = arguments.length <= 0 || arguments[0] === undefined ? function (a) {
+    var transformation = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (a) {
         return a;
-    } : arguments[0];
-    var predicate = arguments.length <= 1 || arguments[1] === undefined ? function () {
+    };
+    var predicate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {
         return true;
-    } : arguments[1];
+    };
     return function (item) {
         return predicate(transformation(item));
     };
