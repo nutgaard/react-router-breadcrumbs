@@ -6,7 +6,7 @@ import { on, not, where, pluck, isEqualTo, join, lastOf } from './utils';
 const paramKeys = /:(\w+)/g;
 
 export const safeKey = (key) => key.replace(/\W/g, '');
-/* eslint-disable */
+/* eslint-disable no-unused-vars */
 export const defaultResolver = (key, text, routePath, route) => key;
 export const defaultLink = (link, key, text, index, routes) => <Link to={link} key={key}>{text}</Link>;
 export const defaultSeparator = (crumb, index, array) => <span key={`separator-${index}`}> &gt; </span>;
