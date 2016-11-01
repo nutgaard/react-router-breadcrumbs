@@ -1,6 +1,15 @@
 import React from 'react';
 import { Router, Route, NoMatch, hashHistory, IndexRoute } from 'react-router';
 import { App, Info, Users, User, UserDetails, UserImage, PublishersPage, PublisherPageContainer } from './app.js';
+import { HelloComponent, GoodByeComponent } from './no-nesting-components.js';
+
+const createRoute = (path, name) => ({path, name});
+const helloOverrides = [
+  createRoute('nonesting/:name/goodbye', 'Goodbye :name')
+];
+const goodbyeOverrides = [
+  createRoute('nonesting/:name/hello', 'Hello :name')
+];
 
 export default (
   <Router history={hashHistory}>
@@ -38,6 +47,10 @@ export default (
           <IndexRoute component={PublishersPage} breadcrumbIgnore />
           <Route path=":publisherId" component={PublisherPageContainer} />
         </Route>
+      </Route>
+      <Route name="nonesting">
+        <Route path="nonesting/:name/hello" component={HelloComponent} breadcrumbsOverride={helloOverrides} />
+        <Route path="nonesting/:name/goodbye" component={GoodByeComponent} breadcrumbsOverride={goodbyeOverrides} />
       </Route>
     </Route>
     <Route name="404: No Match for route" path="*" component={NoMatch} />

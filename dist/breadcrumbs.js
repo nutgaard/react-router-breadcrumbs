@@ -28,7 +28,7 @@ var paramKeys = /:(\w+)/g;
 var safeKey = exports.safeKey = function safeKey(key) {
     return key.replace(/\W/g, '');
 };
-/* eslint-disable */
+/* eslint-disable no-unused-vars */
 var defaultResolver = exports.defaultResolver = function defaultResolver(key, text, routePath, route) {
     return key;
 };
@@ -99,7 +99,9 @@ var renderCrumbs = exports.renderCrumbs = function renderCrumbs(_ref2) {
         createLink = _ref2.createLink,
         resolver = _ref2.resolver;
 
-    var crumbs = (0, _utils.on)(routes).map(toCrumb({ params: params, createLink: createLink, resolver: resolver })).filter((0, _utils.not)((0, _utils.where)((0, _utils.pluck)('breadcrumbIgnore'), (0, _utils.isEqualTo)(true)))).reduce((0, _utils.join)(createSeparator), []);
+    var useRoutes = (0, _utils.lastOf)(routes).breadcrumbsOverride ? (0, _utils.lastOf)(routes).breadcrumbsOverride : routes;
+
+    var crumbs = (0, _utils.on)(useRoutes).map(toCrumb({ params: params, createLink: createLink, resolver: resolver })).filter((0, _utils.not)((0, _utils.where)((0, _utils.pluck)('breadcrumbIgnore'), (0, _utils.isEqualTo)(true)))).reduce((0, _utils.join)(createSeparator), []);
 
     return (0, _utils.on)(prefixElements).concat(crumbs).concat((0, _utils.on)(suffixElements));
 };

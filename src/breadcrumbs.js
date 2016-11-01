@@ -54,7 +54,9 @@ export const renderCrumbs = ({
     createLink,
     resolver
     }) => {
-    const crumbs = on(routes)
+    const useRoutes = lastOf(routes).breadcrumbsOverride ? lastOf(routes).breadcrumbsOverride : routes;
+
+    const crumbs = on(useRoutes)
         .map(toCrumb({ params, createLink, resolver }))
         .filter(not(where(pluck('breadcrumbIgnore'), isEqualTo(true))))
         .reduce(join(createSeparator), []);
