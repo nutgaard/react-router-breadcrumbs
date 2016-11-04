@@ -1,45 +1,43 @@
 import React from 'react';
-import { Router, Route, NoMatch, hashHistory, IndexRoute } from 'react-router';
+import { Route, NoMatch, IndexRoute } from 'react-router';
 import { App, Info, Users, User, UserDetails, UserImage, PublishersPage, PublisherPageContainer } from './app.js';
 
 export default (
-  <Router history={hashHistory}>
-    <Route path="/" name="Examples" component={App} >
-      <Route name="Users" path="users" component={Users}>
-        <Route name="UserLocator" path=":userId" component={User} breadcrumbName=":userId">
-          <Route name="UserImage" path="image" component={UserImage} />
-          <Route name="UserDetails" path="details" component={UserDetails} breadcrumbName="Details" />
-        </Route>
-      </Route>
-      <Route name="RouteName1" path="parent" component={Info}>
-        <Route name="RouteName2" path="child1" component={Info}>
-          <Route name="RouteName3" path=":item1" component={Info} breadcrumbName=":item1">
-            <Route name="RouteName4" path="child2" component={Info}>
-              <Route name="RouteName5" path=":item2" component={Info} breadcrumbName=":item2">
-                <Route name="RouteName6" path="child3" component={Info} />
-              </Route>
+    <Route path="/" name="Examples" component={App}>
+        <Route name="Users" path="users" component={Users}>
+            <Route name="UserLocator" path=":userId" component={User} breadcrumbName=":userId">
+                <Route name="UserImage" path="image" component={UserImage}/>
+                <Route name="UserDetails" path="details" component={UserDetails} breadcrumbName="Details"/>
             </Route>
-          </Route>
         </Route>
-      </Route>
-      <Route name="RouteName7" path="parent-2" component={Info}>
-        <Route name="RouteName8" path="child1" component={Info}>
-          <Route name="RouteName9" path=":item1" component={Info} breadcrumbName=":item1">
-            <Route name="RouteName10" path="child2" component={Info}>
-              <Route name="RouteName11" path=":item2" component={Info} breadcrumbName=":item2">
-                <Route name="RouteName12" path="child3" component={Info} />
-              </Route>
+        <Route name="RouteName1" path="parent" component={Info}>
+            <Route name="RouteName2" path="child1" component={Info}>
+                <Route name="RouteName3" path=":item1" component={Info} breadcrumbName=":item1">
+                    <Route name="RouteName4" path="child2" component={Info}>
+                        <Route name="RouteName5" path=":item2" component={Info} breadcrumbName=":item2">
+                            <Route name="RouteName6" path="child3" component={Info}/>
+                        </Route>
+                    </Route>
+                </Route>
             </Route>
-          </Route>
         </Route>
-      </Route>
-      <Route path=":context" breadcrumbIgnore >
-        <Route path="publishers" breadcrumbIgnore >
-          <IndexRoute component={PublishersPage} breadcrumbIgnore />
-          <Route path=":publisherId" component={PublisherPageContainer} />
+        <Route name="RouteName7" path="parent-2" component={Info}>
+            <Route name="RouteName8" path="child1" component={Info}>
+                <Route name="RouteName9" path=":item1" component={Info} breadcrumbName=":item1">
+                    <Route name="RouteName10" path="child2" component={Info}>
+                        <Route name="RouteName11" path=":item2" component={Info} breadcrumbName=":item2">
+                            <Route name="RouteName12" path="child3" component={Info}/>
+                        </Route>
+                    </Route>
+                </Route>
+            </Route>
         </Route>
-      </Route>
+        <Route path=":context" breadcrumbIgnore>
+            <Route path="publishers" breadcrumbIgnore>
+                <IndexRoute component={PublishersPage} breadcrumbIgnore/>
+                <Route path=":publisherId" component={PublisherPageContainer}/>
+            </Route>
+        </Route>
+        <Route name="404: No Match for route" path="*" component={NoMatch}/>
     </Route>
-    <Route name="404: No Match for route" path="*" component={NoMatch} />
-  </Router>
 );

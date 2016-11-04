@@ -1,4 +1,8 @@
 import { render } from 'react-dom';
-import Routes from './routes.js';
+import React from 'react';
+import { Router, hashHistory } from 'react-router';
+import routes from './routes.js';
 
-render(Routes, document.getElementById('app'));
+render((
+    <Router history={hashHistory}>{routes}</Router>
+), document.getElementById('app'));

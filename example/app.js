@@ -26,39 +26,41 @@ const customResolver = (keyValue, text) => {
 
 const crumbResolver = combineResolvers(userResolver, itemResolver, customResolver, textResolver);
 
-export const App = ({ routes, params, children }) => (
-    <div className="animated fadeIn">
-        <div>
-            <Breadcrumbs routes={routes} createSeparator=" | " />
-            <Breadcrumbs routes={routes} params={params} resolver={crumbResolver} />
-            <div className="content">
-                <h3>Navigation</h3>
-                Users route: <Link to="users">Users</Link>
-                <hr />
-                Very long route: <Link to="/parent">Parent</Link>{" "}
-                <Link to="/parent/child1">Child1</Link>{" "}
-                <Link to="/parent/child1/item1">Item1</Link>{" "}
-                <Link to="/parent/child1/item1/child2">Child2</Link>{" "}
-                <Link to="/parent/child1/item1/child2/item2">Item2</Link>{" "}
-                <Link to="/parent/child1/item1/child2/item2/child3">Child3</Link>{" "}
-                <br />
-                Second very long route: <Link to="/parent-2">Parent-2</Link>{" "}
-                <Link to="/parent-2/child1">Child1-2</Link>{" "}
-                <Link to="/parent-2/child1/item1">Item1-2</Link>{" "}
-                <Link to="/parent-2/child1/item1/child2">Child2-2</Link>{" "}
-                <Link to="/parent-2/child1/item1/child2/item2">Item2-2</Link>{" "}
-                <Link to="/parent-2/child1/item1/child2/item2/child3">Child3-2</Link>{" "}
+export const App = ({ routes, params, children }) => {
+    console.log('routes', routes);
+    return (
+        <div className="animated fadeIn">
+            <div>
+                <Breadcrumbs routes={routes} createSeparator=" | "/>
+                <Breadcrumbs routes={routes} params={params} resolver={crumbResolver}/>
+                <div className="content">
+                    <h3>Navigation</h3>
+                    Users route: <Link to="users">Users</Link>
+                    <hr />
+                    Very long route: <Link to="/parent">Parent</Link>{" "}
+                    <Link to="/parent/child1">Child1</Link>{" "}
+                    <Link to="/parent/child1/item1">Item1</Link>{" "}
+                    <Link to="/parent/child1/item1/child2">Child2</Link>{" "}
+                    <Link to="/parent/child1/item1/child2/item2">Item2</Link>{" "}
+                    <Link to="/parent/child1/item1/child2/item2/child3">Child3</Link>{" "}
+                    <br />
+                    Second very long route: <Link to="/parent-2">Parent-2</Link>{" "}
+                    <Link to="/parent-2/child1">Child1-2</Link>{" "}
+                    <Link to="/parent-2/child1/item1">Item1-2</Link>{" "}
+                    <Link to="/parent-2/child1/item1/child2">Child2-2</Link>{" "}
+                    <Link to="/parent-2/child1/item1/child2/item2">Item2-2</Link>{" "}
+                    <Link to="/parent-2/child1/item1/child2/item2/child3">Child3-2</Link>{" "}
 
-                <h3>Deeplink</h3>
-                <Link to="/context/publishers">Publishers</Link>{" "}
-                <Link to="/context/publishers/myId">Publishers</Link>
-                <h3>Content</h3>
-                {children}
+                    <h3>Deeplink</h3>
+                    <Link to="/context/publishers">Publishers</Link>{" "}
+                    <Link to="/context/publishers/myId">Publishers</Link>
+                    <h3>Content</h3>
+                    {children}
+                </div>
             </div>
         </div>
-    </div>
-);
-
+    );
+}
 export const Info = () => (
     <div>
         <div>

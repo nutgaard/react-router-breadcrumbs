@@ -50,6 +50,7 @@
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "6.4.1",
     "eslint-watch": "2.1.14",
+    "express": "^4.14.0",
     "in-publish": "2.0.0",
     "jsdom": "9.8.3",
     "mocha": "3.1.2",
