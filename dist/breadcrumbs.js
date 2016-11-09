@@ -28,7 +28,7 @@ var paramKeys = /:(\w+)/g;
 var safeKey = exports.safeKey = function safeKey(key) {
     return key.replace(/\W/g, '');
 };
-/* eslint-disable */
+/* eslint-disable no-unused-vars */
 var defaultResolver = exports.defaultResolver = function defaultResolver(key, text, routePath, route) {
     return key;
 };
