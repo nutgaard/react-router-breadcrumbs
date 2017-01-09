@@ -149,14 +149,14 @@ describe('Breadcrumbs', () => {
         it('should replace keys with the params provided', () => {
             const res = Func.createHref([
                 { breadcrumbLink: ':item1' },
-                { breadcrumbLink: ':item2' },
+                { breadcrumbLink: '(:item2)' },
                 { breadcrumbLink: ':item3' }
             ], {
                 item1: 'val1',
                 item3: 'val3'
             });
 
-            expect(res).to.equal('/val1/item2/val3');
+            expect(res).to.equal('/val1/val3');
         });
 
         it('should handle optional params with values present', () => {
