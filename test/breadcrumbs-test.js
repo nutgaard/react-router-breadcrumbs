@@ -93,6 +93,15 @@ describe('Breadcrumbs', () => {
             expect(resolver.calledWithExactly(':param1', 'value1', routePath, route)).to.equal(true);
         });
 
+        it('should call resolver with text, param-replaced-text, routepath and route (optional param)', () => {
+            const resolver = spy();
+            const route = { ...defaultRoute, breadcrumbName: ':param1', breadcrumbLink: 'path(/:param1)' };
+            const routePath = [{ ...route }, route];
+            Func.createText(routePath, { param1: 'value1' }, resolver);
+
+            expect(resolver.calledWithExactly(':param1', 'value1', routePath, route)).to.equal(true);
+        });
+
         it('should use breadcrumbName, then route.name then route.component.name for text resolution', () => {
             const textResolver = (a) => a;
             const componentNameTest = [undefined, { component: { name: 'componentname' } }];
@@ -148,6 +157,24 @@ describe('Breadcrumbs', () => {
             });
 
             expect(res).to.equal('/val1/item2/val3');
+        });
+
+        it('should handle optional params with values present', () => {
+            const res = Func.createHref([
+                { breadcrumbLink: 'path(/:item1)' },
+            ], {
+                item1: 'val1',
+            });
+
+            expect(res).to.equal('/path/val1');
+        });
+        it('should handle optional params with values missing', () => {
+            const res = Func.createHref([
+                { breadcrumbLink: 'path(/:item1)' },
+            ], {
+            });
+
+            expect(res).to.equal('/path');
         });
     });
     describe('_toCrumbs', () => {
