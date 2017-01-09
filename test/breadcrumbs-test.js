@@ -129,7 +129,7 @@ describe('Breadcrumbs', () => {
                 { breadcrumbLink: 'path' },
                 { breadcrumbLink: 'path' },
                 { breadcrumbLink: 'path' },
-                { breadcrumbLink: '/path/' },
+                { breadcrumbLink: '////path/' },
                 { breadcrumbLink: '/path/' },
                 { breadcrumbLink: '/path' }
             ], {});
