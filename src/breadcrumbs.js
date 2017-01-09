@@ -26,7 +26,7 @@ export const createHref = (routePath, params) => {
         .map((route) => route.breadcrumbLink || route.path || '')
         .map((routeName) => routeName.startsWith('/') ? routeName : `/${routeName}`)
         .join('')
-        .replace(/\/\//g, '/');
+        .replace(/\/\/+/g, '/');
 
     return paramReplace(link, params);
 };
