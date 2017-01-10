@@ -2660,9 +2660,9 @@ jsbn@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.0.tgz#650987da0dd74f4ebf5a11377a2aa2d273e97dfd"
 
-jsdom@9.8.3:
-  version "9.8.3"
-  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-9.8.3.tgz#fde29c109c32a1131e0b6c65914e64198f97c370"
+jsdom@9.9.0:
+  version "9.9.0"
+  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-9.9.0.tgz#3d86319238fd07ac370191d83f06199a51e0b3ba"
   dependencies:
     abab "^1.0.0"
     acorn "^2.4.0"
@@ -2674,7 +2674,7 @@ jsdom@9.8.3:
     escodegen "^1.6.1"
     html-encoding-sniffer "^1.0.1"
     iconv-lite "^0.4.13"
-    nwmatcher ">= 1.3.7 < 2.0.0"
+    nwmatcher ">= 1.3.9 < 2.0.0"
     parse5 "^1.5.1"
     request "^2.55.0"
     sax "^1.1.4"
@@ -2682,7 +2682,7 @@ jsdom@9.8.3:
     tough-cookie "^2.3.1"
     webidl-conversions "^3.0.1"
     whatwg-encoding "^1.0.1"
-    whatwg-url "^3.0.0"
+    whatwg-url "^4.1.0"
     xml-name-validator ">= 2.0.1 < 3.0.0"
 
 jsesc@^1.3.0:
@@ -3158,7 +3158,7 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-"nwmatcher@>= 1.3.7 < 2.0.0":
+"nwmatcher@>= 1.3.9 < 2.0.0":
   version "1.3.9"
   resolved "https://registry.yarnpkg.com/nwmatcher/-/nwmatcher-1.3.9.tgz#8bab486ff7fa3dfd086656bbe8b17116d3692d2a"
 
@@ -4422,9 +4422,9 @@ whatwg-fetch@>=0.10.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-1.0.0.tgz#01c2ac4df40e236aaa18480e3be74bd5c8eb798e"
 
-whatwg-url@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-3.0.0.tgz#b9033c50c7ce763e91d78777ce825a6d7f56dac5"
+whatwg-url@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-4.2.0.tgz#abf1a3f5ff4bc2005b3f0c2119382631789d8e44"
   dependencies:
     tr46 "~0.0.3"
     webidl-conversions "^3.0.0"

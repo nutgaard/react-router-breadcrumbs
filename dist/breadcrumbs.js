@@ -67,7 +67,7 @@ var createHref = exports.createHref = function createHref(routePath, params) {
         return route.breadcrumbLink || route.path || '';
     }).map(function (routeName) {
         return routeName.startsWith('/') ? routeName : '/' + routeName;
-    }).join('').replace(/\/\//g, '/');
+    }).join('').replace(/\/\/+/g, '/');
 
     return paramReplace(link, params);
 };
