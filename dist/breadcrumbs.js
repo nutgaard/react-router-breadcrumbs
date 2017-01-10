@@ -69,7 +69,7 @@ var createHref = exports.createHref = function createHref(routePath, params) {
         return routeName.startsWith('/') ? routeName : '/' + routeName;
     }).join('').replace(/\/\/+/g, '/');
 
-    return paramReplace(link, params);
+    return (0, _reactRouter.formatPattern)(link, params);
 };
 
 var toCrumb = exports.toCrumb = function toCrumb(_ref) {
