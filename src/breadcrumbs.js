@@ -1,5 +1,5 @@
 import React, { PropTypes as PT } from 'react';
-import { Link } from 'react-router';
+import { Link, formatPattern } from 'react-router';
 import * as RouterProps from './router-props';
 import { on, not, where, pluck, isEqualTo, join, lastOf } from './utils';
 
@@ -28,7 +28,7 @@ export const createHref = (routePath, params) => {
         .join('')
         .replace(/\/\/+/g, '/');
 
-    return paramReplace(link, params);
+    return formatPattern(link, params);
 };
 
 export const toCrumb = ({ params, createLink, resolver }) =>
