@@ -1,4 +1,5 @@
-import React, { PropTypes as PT } from 'react';
+import React from 'react';
+import PT from 'prop-types';
 import { Link, formatPattern } from 'react-router';
 import * as RouterProps from './router-props';
 import { on, not, where, pluck, isEqualTo, join, lastOf } from './utils';
