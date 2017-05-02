@@ -30,10 +30,10 @@ The component takes five props in addition to `routes`.
                                                 
 |    PropName           |    PropType                                           |    Default    |  Description                                          |
 | --------------------- | ----------------------------------------------------- | ------------- | ----------------------------------------------------- |
-| `className`           | `React.PropTypes.string`                              | `breadcrumbs` | The className for the `div` wrapping your breadcrumbs |
-| `params`              | `React.PropTypes.object`                              | `{}`          | Typically the params from react-router                |
-| `resolver`            | `React.PropTypes.func`                                | See below     | A text resolver for customized texts                  |
-| `createLink`          | `React.PropTypes.func`                                | See below     | Hook for overriding how links are created             |
+| `className`           | `PropTypes.string`                                    | `breadcrumbs` | The className for the `div` wrapping your breadcrumbs |
+| `params`              | `PropTypes.object`                                    | `{}`          | Typically the params from react-router                |
+| `resolver`            | `PropTypes.func`                                      | See below     | A text resolver for customized texts                  |
+| `createLink`          | `PropTypes.func`                                      | See below     | Hook for overriding how links are created             |
 | `createSeparator`     | `PT.oneOfType([PT.func, PT.string])`                  | See below     | Hook for override how separators are created          |
 | `wrappingComponent`   | `PT.string`                                           | `div`         | Determines the tagName for the wrapping component     |
 | `prefixElements`      | `PT.oneOfType([PT.arrayOf(PT.element), PT.element])`  | none          | Elements to be added infront of the breadcrumb        |
@@ -118,8 +118,8 @@ This component has the newest react and react-router as peerdependenies, but wil
 If you test the component with lower versions of react and/or react-router please let me know so that the dependencies can be adjusted.
 
 ```
-"react": "^0.14.7 || ^15.0.1",
-"react-dom": "^0.14.7 || ^15.0.1",
+"react": "^0.14.9 || ^15.3.0",
+"react-dom": "^0.14.9 || ^15.3.0",
 "react-router": "^2.0.1 || ^3.0.0"
 ```
 
