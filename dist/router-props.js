@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.routes = exports.route = undefined;
 
-var _react = require('react');
+var _propTypes = require('prop-types');
 
-var route = exports.route = _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.element]);
-var routes = exports.routes = _react.PropTypes.oneOfType([route, _react.PropTypes.arrayOf(route)]);
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var route = exports.route = _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element]);
+var routes = exports.routes = _propTypes2.default.oneOfType([route, _propTypes2.default.arrayOf(route)]);
