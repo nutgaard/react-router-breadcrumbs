@@ -4,7 +4,7 @@ general:
       - gh-pages
 machine:
   node:
-    version: 5.1.0
+    version: 8.1.4
 dependencies:
   pre:
     - curl -o- -L https://yarnpkg.com/install.sh | bash

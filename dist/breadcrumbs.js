@@ -9,6 +9,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactRouter = require('react-router');
 
 var _routerProps = require('./router-props');
@@ -131,14 +135,14 @@ Breadcrumbs.defaultProps = {
 
 Breadcrumbs.propTypes = {
     routes: RouterProps.routes.isRequired,
-    params: _react.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    resolver: _react.PropTypes.func,
-    createLink: _react.PropTypes.func,
-    createSeparator: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.string]),
-    className: _react.PropTypes.string,
-    wrappingComponent: _react.PropTypes.string,
-    prefixElements: _react.PropTypes.oneOfType([_react.PropTypes.arrayOf(_react.PropTypes.element), _react.PropTypes.element]),
-    suffixElements: _react.PropTypes.oneOfType([_react.PropTypes.arrayOf(_react.PropTypes.element), _react.PropTypes.element])
+    params: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+    resolver: _propTypes2.default.func,
+    createLink: _propTypes2.default.func,
+    createSeparator: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    className: _propTypes2.default.string,
+    wrappingComponent: _propTypes2.default.string,
+    prefixElements: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.element), _propTypes2.default.element]),
+    suffixElements: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.element), _propTypes2.default.element])
 };
 
 exports.default = Breadcrumbs;
