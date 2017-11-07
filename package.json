@@ -53,7 +53,7 @@
     "in-publish": "2.0.0",
     "jsdom": "11.1.0",
     "mocha": "3.4.2",
-    "npm-run-all": "4.0.2",
+    "npm-run-all": "4.1.2",
     "nyc": "^11.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
