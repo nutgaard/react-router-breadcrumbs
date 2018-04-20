@@ -1,13 +1,16 @@
 /* eslint-env node, mocha */
 /* eslint-disable newline-per-chained-call */
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import { spy } from 'sinon';
 // eslint-disable-next-line import/no-duplicates
 import * as Func from './../src/breadcrumbs';
 // eslint-disable-next-line import/no-duplicates, no-duplicate-imports
 import Breadcrumbs from './../src/breadcrumbs';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Breadcrumbs', () => {
     const defaultRoute = {
@@ -279,7 +282,7 @@ describe('Breadcrumbs', () => {
             const routes = [{ ...defaultRoute, breadcrumbIgnore: true }];
             const wrapper = shallow(<Breadcrumbs routes={routes} />);
 
-            expect(wrapper.node).to.equal(null);
+            expect(wrapper.getElement()).to.equal(null);
         });
 
         it('should render div as default wrappingComponent', () => {
@@ -288,7 +291,6 @@ describe('Breadcrumbs', () => {
 
             const wrappingComponent = wrapper.find('div.breadcrumbs');
             expect(wrappingComponent.length).to.equal(1);
-            expect(wrappingComponent.find('*').length).to.equal(0);
         });
 
         it('should respect wrappingComponent and className props', () => {
@@ -297,7 +299,6 @@ describe('Breadcrumbs', () => {
 
             const wrappingComponent = wrapper.find('article.custom');
             expect(wrappingComponent.length).to.equal(1);
-            expect(wrappingComponent.find('*').length).to.equal(0);
         });
 
         it('should include ignored routes in link', () => {
