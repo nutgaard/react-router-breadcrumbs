@@ -62,7 +62,7 @@
     "react-test-renderer": "^15.6.1",
     "sinon": "2.3.8",
     "webpack": "3.3.0",
-    "webpack-dev-server": "2.6.1"
+    "webpack-dev-server": "3.8.0"
   },
   "peerDependencies": {
     "react": "^0.14.9 || ^15.3 || ^16.3",
