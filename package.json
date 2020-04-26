@@ -53,7 +53,7 @@
     "eslint-watch": "3.1.2",
     "in-publish": "2.0.0",
     "jsdom": "11.1.0",
-    "mocha": "3.4.2",
+    "mocha": "7.1.2",
     "npm-run-all": "4.0.2",
     "nyc": "^11.1.0",
     "react": "^16.3.0",
